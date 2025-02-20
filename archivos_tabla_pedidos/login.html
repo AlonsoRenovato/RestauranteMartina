@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <title>Iniciar sesión</title>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <script src="app.js"></script>
+        <!-- Estilos-->
+         <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family:Arial, sans-serif;
+            }
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #ffd1dc;
+            }
+
+            .login-container {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                width: 300px;
+                text-align: center;
+            }
+
+            .login-container h2 {
+                margin-bottom: 20px;
+            }
+
+            .input-field {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .submit-button {
+                width: 100%;
+                padding: 10px;
+                background: #fc49d5;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+         </style>
+    </head>
+
+    <body>
+        <div class="login-container">
+            <h2>Iniciar Sesión</h2>
+            <form>
+                <input type="text" id="email" class="input-field" placeholder="Correo electrónico" required>
+                <input type="password" id="password" class="input-field" placeholder="Contraseña" required>
+                <button type="submit" class="submit-button" onclick=iniciarSesion()>Ingresar</button>
+            </form>
+        </div>
+    </body>
+
+</html>

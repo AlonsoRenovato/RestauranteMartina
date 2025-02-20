@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Pedidos</title>
+    <link rel="stylesheet" href="stylesTablaPedidos.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Pedidos Realizados</h1>
+        <table id="tablaPedidos">
+            <thead>
+                <tr>
+                    <th><input type="text" id="filtroPedidoID" placeholder="Filtrar PedidoID"></th>
+                    <th><input type="text" id="filtroUsuarioID" placeholder="Filtrar UsuarioID"></th>
+                    <th><input type="text" id="filtroOrdenID" placeholder="Filtrar OrdenID"></th>
+                    <th><input type="date" id="filtroFechaPedido" placeholder="Filtrar Fecha"></th>
+                    <th><select id="filtroAdomicilio">
+                        <option value="">Todos</option>
+                        <option value="sí">Sí</option>
+                        <option value="no">No</option>
+                    </select></th>
+                    <th><input type="text" id="filtroSucursalID" placeholder="Filtrar SucursalID"></th>
+                </tr>
+                <tr>
+                    <th>PedidoID</th>
+                    <th>UsuarioID</th>
+                    <th>OrdenID</th>
+                    <th>Fecha Pedido</th>
+                    <th>A Domicilio</th>
+                    <th>SucursalID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se agregarán las filas dinámicamente con JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+
+    <script src="scriptTablaPedidos.js"></script>
+</body>
+</html>
