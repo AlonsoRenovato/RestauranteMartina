@@ -3,7 +3,7 @@ let comidas = [];
 let postres = [];
 let bebidas = [];
 
-
+// DESAYUNOS
 async function obtenerDesayunos() {
     console.log('Se llamó la función obtenerDesayunos');
 
@@ -28,8 +28,13 @@ function mostrarDesayunos(desayunos) {
 
     const volver = document.createElement('button');
     volver.innerText = '< Volver';
-    volver.onclick = mostrarMenuPrincipal;
+    volver.onclick = mostrarMenuPrincipal;  // llamar función al hacer click
     popup.appendChild(volver);
+
+    const carrito = document.createElement('button');
+    carrito.innerText = 'Carrito';
+    carrito.onclick = mostrarCarrito;
+    popup.appendChild(carrito);
 
     const title = document.createElement('h2');
     title.innerText = 'Desayunos';
@@ -55,10 +60,202 @@ function mostrarDesayunos(desayunos) {
     });
 }
 
+// COMIDAS
+async function obtenerComidas() {
+    console.log('Se llamó la función obtenerComidas');
+
+    try {
+        const respuesta = await fetch('http:localhost:3000/comidas')
+        comidas = await respuesta.json();
+        console.log(comidas);
+        mostrarComidas(comidas);
+
+    } catch (error) {
+        console.error('Error al obtener las comidas: ', error);
+    }
+}
+
+function mostrarComidas(comidas) {
+    console.log('Se llamó la función mostrarComidas');
+    console.log(comidas);
+
+    popup = document.getElementById('popup');
+
+    popup.innerHTML = '';
+
+    const volver = document.createElement('button');
+    volver.innerText = '< Volver';
+    volver.onclick = mostrarMenuPrincipal;
+    popup.appendChild(volver);
+
+    const carrito = document.createElement('button');
+    carrito.innerText = 'Carrito';
+    carrito.onclick = mostrarCarrito;
+    popup.appendChild(carrito);
+
+    const title = document.createElement('h2');
+    title.innerText = 'Comidas';
+    popup.appendChild(title);
+
+    comidas.forEach(item => {
+        const div = document.createElement('div');
+        div.classList.add('menu-div');
+
+        const h3 = document.createElement('h3');
+        h3.innerText = item.Nombre;
+        div.appendChild(h3);
+
+        const p = document.createElement('p');
+        p.innerText = item.Descripcion;
+        div.appendChild(p);
+
+        const p2 = document.createElement('p');
+        p2.innerText = '$' + item.Precio;
+        div.appendChild(p2);
+
+        popup.appendChild(div);
+    });
+}
+
+// POSTRES
+async function obtenerPostres() {
+    console.log('Se llamó la función obtenerPostres');
+
+    try {
+        const respuesta = await fetch('http:localhost:3000/postres')
+        postres = await respuesta.json();
+        console.log(postres);
+        mostrarPostres(postres);
+
+    } catch (error) {
+        console.error('Error al obtener los postres: ', error);
+    }
+}
+
+function mostrarPostres(postres) {
+    console.log('Se llamó la función mostrarPostres');
+    console.log(postres);
+
+    popup = document.getElementById('popup');
+
+    popup.innerHTML = '';
+
+    const volver = document.createElement('button');
+    volver.innerText = '< Volver';
+    volver.onclick = mostrarMenuPrincipal;
+    popup.appendChild(volver);
+
+    const carrito = document.createElement('button');
+    carrito.innerText = 'Carrito';
+    carrito.onclick = mostrarCarrito;
+    popup.appendChild(carrito);
+
+    const title = document.createElement('h2');
+    title.innerText = 'Postres';
+    popup.appendChild(title);
+
+    postres.forEach(item => {
+        const div = document.createElement('div');
+        div.classList.add('menu-div');
+
+        const h3 = document.createElement('h3');
+        h3.innerText = item.Nombre;
+        div.appendChild(h3);
+
+        const p = document.createElement('p');
+        p.innerText = item.Descripcion;
+        div.appendChild(p);
+
+        const p2 = document.createElement('p');
+        p2.innerText = '$' + item.Precio;
+        div.appendChild(p2);
+
+        popup.appendChild(div);
+    });
+}
+
+// BEBIDAS
+async function obtenerBebidas() {
+    console.log('Se llamó la función obtenerBebidas');
+
+    try {
+        const respuesta = await fetch('http:localhost:3000/bebidas')
+        bebidas = await respuesta.json();
+        console.log(bebidas);
+        mostrarBebidas(bebidas);
+
+    } catch (error) {
+        console.error('Error al obtener las bebidas: ', error);
+    }
+}
+
+function mostrarBebidas(bebidas) {
+    console.log('Se llamó la función mostrarBebidas');
+    console.log(bebidas);
+
+    popup = document.getElementById('popup');
+
+    popup.innerHTML = '';
+
+    const volver = document.createElement('button');
+    volver.innerText = '< Volver';
+    volver.onclick = mostrarMenuPrincipal;
+    popup.appendChild(volver);
+
+    const carrito = document.createElement('button');
+    carrito.innerText = 'Carrito';
+    carrito.onclick = mostrarCarrito;
+    popup.appendChild(carrito);
+
+    const title = document.createElement('h2');
+    title.innerText = 'Bebidas';
+    popup.appendChild(title);
+
+    bebidas.forEach(item => {
+        const div = document.createElement('div');
+        div.classList.add('menu-div');
+
+        const h3 = document.createElement('h3');
+        h3.innerText = item.Nombre;
+        div.appendChild(h3);
+
+        const p = document.createElement('p');
+        p.innerText = item.Descripcion;
+        div.appendChild(p);
+
+        const p2 = document.createElement('p');
+        p2.innerText = '$' + item.Precio;
+        div.appendChild(p2);
+
+        popup.appendChild(div);
+    });
+}
+
+// CARRITO
+function mostrarCarrito() {
+    const popup = document.getElementById('popup');
+    popup.innerHTML = '';
+
+    const title = document.createElement('h2');
+    title.innerText = 'Mi Carrito'
+    popup.appendChild(title);
+
+    const volver = document.createElement('button');
+    volver.innerText = '< Menú Principal';
+    volver.onclick = mostrarMenuPrincipal;
+    popup.appendChild(volver);
+}
+
+// MOSTRAR MENÚ PRINCIPAL
 function mostrarMenuPrincipal() {
     const popup = document.getElementById('popup');
 
-    popup.innerHTML = ''; // Limpiar el contenido del popup
+    popup.innerHTML = '';
+
+    const carrito = document.createElement('button');
+    carrito.innerText = 'Carrito';
+    carrito.onclick = mostrarCarrito;
+    popup.appendChild(carrito);
 
     const title = document.createElement('h2');
     title.innerText = 'Realiza tu pedido';
@@ -69,13 +266,13 @@ function mostrarMenuPrincipal() {
     popup.appendChild(description);
     popup.appendChild(document.createElement('br'));
 
-    // Menú de opciones
+    // menú de opciones
     const menuList = document.createElement('div');
     menuList.classList.add('menu-list');
     
     const desayunosDiv = document.createElement('div');
     desayunosDiv.classList.add('menu-div');
-    desayunosDiv.onclick = obtenerDesayunos;  // Aquí ponemos el manejador para mostrar los desayunos
+    desayunosDiv.onclick = obtenerDesayunos;  // aquí ponemos el manejador para mostrar los desayunos
     const desayunosImage = document.createElement('img');
     desayunosImage.src = 'assets/img/desayuno-menu.jpg';
     desayunosDiv.appendChild(desayunosImage);
@@ -90,7 +287,7 @@ function mostrarMenuPrincipal() {
 
     const comidasDiv = document.createElement('div');
     comidasDiv.classList.add('menu-div');
-    //comidasDiv.onclick = obtenerComidas;
+    comidasDiv.onclick = obtenerComidas;
     const comidasImage = document.createElement('img');
     comidasImage.src = 'assets/img/comida-menu.jpg';
     comidasDiv.appendChild(comidasImage);
@@ -105,7 +302,7 @@ function mostrarMenuPrincipal() {
 
     const postresDiv = document.createElement('div');
     postresDiv.classList.add('menu-div');
-    //postresDiv.onclick = obtenerPostres;
+    postresDiv.onclick = obtenerPostres;
     const postresImage = document.createElement('img');
     postresImage.src = 'assets/img/postre-menu.jpg';
     postresDiv.appendChild(postresImage);
@@ -120,7 +317,7 @@ function mostrarMenuPrincipal() {
 
     const bebidasDiv = document.createElement('div');
     bebidasDiv.classList.add('menu-div');
-    //bebidasDiv.onclick = obtenerBebidas;
+    bebidasDiv.onclick = obtenerBebidas;
     const bebidasImage = document.createElement('img');
     bebidasImage.src = 'assets/img/bebida-menu.jpg';
     bebidasDiv.appendChild(bebidasImage);

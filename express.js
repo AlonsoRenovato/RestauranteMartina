@@ -1,39 +1,28 @@
+// EL SERVIDOR SE EJECUTA EN LA LÍNEA FINAL
+
 // importar módulos necesarios
 const express = require('express'); // módulo de express
-const connectToDatabase = require('./db.js'); // se importa la función de db.js
 const bcrypt = require('bcryptjs'); // módulo de encriptación de contraseñas
 const cors = require('cors'); // cross-origin resource sharing
-
+const pool = require('./db'); // importa el pool de conexiones de db.js
 const app = express(); // inicializa el servidor express
 
 app.use(cors()); // usar cors en todas las rutas
 app.use(express.json()); // para manejar datos tipo json
 
-let connection; // Variable para guardar la conexión a la base de datos
-
-// establecer la conexión a la base de datos usando la función de db.js
-connectToDatabase().then(dbConnection => {
-    connection = dbConnection; // Asignamos la conexión a la variable global
-    if (connection) {
-        console.log('Se estableció la conexión a la base de datos :)')
-    }
-}).catch(err => {
-    console.error('Error al conectar a la base de datos:', err);
-});
-
-// establece la ruta de la raíz, o sea ejecuta el servidor
+// establece la ruta de la raíz, o sea lo que pasa cuando se ejecuta el servidor
 app.get('/', (req, res) => {
     res.send('Hola, el servidor está en ejecución.');
 });
 
-app.listen(3000, () => console.log('Server running on port 3000!'));
-
 // ruta para iniciar sesión
 app.post('/login', async (req, res) => {
+    let connection;
     const { correoElectronico, contrasena } = req.body;
 
     try {
-        // consulta para buscar al usuario por correo electrónico
+        connection = await pool.getConnection(); // obtiene una conexión del pool
+        if (connection) console.log('Se estableció una conexión a la base de datos para obtener los administradores :)');
         const [rows] = await connection.execute('SELECT * FROM Administrador WHERE (CorreoElectronico) = ?',
         [correoElectronico]);
 
@@ -54,60 +43,91 @@ app.post('/login', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error interno del servidor' });
+
+    } finally {
+        if (connection) connection.release();
     }
 });
 
-// ruta para ver pedidos
+// ruta para obtener pedidos
 app.get('/pedidos', async (req, res) => {
+    let connection;
     try {
+        connection = await pool.getConnection();
+        if (connection) console.log('Se estableció una conexión a la base de datos para obtener los pedidos :)');
         const [rows] = await connection.execute('SELECT * FROM Pedido');
         res.status(200).json(rows);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al obtener los pedidos' });
+    } finally {
+        if (connection) connection.release();
     }
 });
 
-// ruta para ver desayunos del menú
+// ruta para obtener desayunos del menú
 app.get('/desayunos', async (req, res) => {
+    let connection;
     try {
+        connection = await pool.getConnection();
+        if (connection) console.log('Se estableció una conexión a la base de datos para obtener los desayunos :)');
         const [rows] = await connection.execute('SELECT * FROM MenuItem WHERE Cat = ?', ['Desayuno']);
         res.status(200).json(rows);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al obtener los desayunos' });
+    } finally {
+        if (connection) connection.release();
     }
 });
 
-// ruta para ver las comidas del menú
+// ruta para obtener las comidas del menú
 app.get('/comidas', async (req, res) => {
+    let connection;
     try {
+        connection = await pool.getConnection(); 
+        if (connection) console.log('Se estableció una conexión a la base de datos para obtener las comidas :)');
         const [rows] = await connection.execute('SELECT * FROM MenuItem WHERE Cat = ?', ['Comida']);
         res.status(200).json(rows);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al obtener las comidas' });
+    } finally {
+        if (connection) connection.release();
     }
 });
 
-// ruta para ver postres del menú
+// ruta para obtener postres del menú
 app.get('/postres', async (req, res) => {
+    let connection;
     try {
+        connection = await pool.getConnection(); 
+        if (connection) console.log('Se estableció una conexión a la base de datos para obtener los postres :)');
         const [rows] = await connection.execute('SELECT * FROM MenuItem WHERE Cat = ?', ['Postre']);
         res.status(200).json(rows);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al obtener los postres' });
+    } finally {
+        if (connection) connection.release();
     }
 });
 
-// ruta para ver bebidas del menú
+// ruta para obtener bebidas del menú
 app.get('/bebidas', async (req, res) => {
+    let connection;
     try {
+        connection = await pool.getConnection(); 
+        if (connection) console.log('Se estableció una conexión a la base de datos para obtener las bebidas :)');
         const [rows] = await connection.execute('SELECT * FROM MenuItem WHERE Cat = ?', ['Bebida']);
         res.status(200).json(rows);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al obtener las bebidas' });
+    } finally {
+        if (connection) connection.release();
     }
 });
+
+// EJECUTAR EL SERVIDOR
+app.listen(3000, () => console.log('Servidor ejecutandose en puerto 3000!'));
