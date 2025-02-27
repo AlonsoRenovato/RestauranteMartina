@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Team - Moderna Bootstrap Template</title>
+  <title>Services - Moderna Bootstrap Template</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -37,7 +37,7 @@
   ======================================================== -->
 </head>
 
-<body class="team-page">
+<body class="services-page">
 
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
@@ -69,136 +69,52 @@
     <!-- Page Title -->
     <div class="page-title dark-background">
       <div class="container position-relative">
-        <h1>Equipo</h1>
-        <p>El equipo que forma nuestro restaurante</p>
+        <h1>Reservación Sucursal Leones</h1>
+        <p>Reserva tu mesa fácilmente en Restaurante Martina. Selecciona la fecha y hora disponibles.</p>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index.html">Inicio</a></li>
-            <li class="current">Equipo</li>
+            <li><a href="Sucursales.html">Regresar</a></li>
+            <li class="current">Reservación</li>
           </ol>
         </nav>
       </div>
-    </div><!-- End Page Title -->
+    </div><!-- End Page Title --> 
 
-    <!-- Team Section -->
-    <section id="team" class="team section">
-
+    <!-- Sección de Reservación -->
+    <section id="reservation" class="py-5">
       <div class="container">
+        <h2 class="text-center">Haz tu Reservación</h2>
+        <form id="reservationForm" class="mx-auto" style="max-width: 500px;">
+          <div class="mb-3">
+            <label for="date" class="form-label">Fecha:</label>
+            <input type="date" id="date" class="form-control" required>
+          </div>
 
-        <div class="row gy-5">
+          <div class="mb-3">
+            <label for="time" class="form-label">Hora:</label>
+            <select id="time" class="form-select" required>
+              <option value="">Selecciona una fecha primero</option>
+            </select>
+          </div>
 
-          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
-            <div class="member-img">
-              <img src="assets/img/team/team-1.png" class="img-fluid" alt="">
-              <div class="social">
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info text-center">
-              <h4>Don Alberto Siu</h4>
-              <span>Chief Executive Officer</span>
-              <p>Aliquam iure quaerat voluptatem praesentium possimus unde laudantium vel dolorum distinctio dire flow</p>
-            </div>
-          </div><!-- End Team Member -->
+          <div class="mb-3">
+            <label for="people" class="form-label">Número de personas:</label>
+            <input type="number" id="people" class="form-control" min="1" required>
+          </div>
 
-          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="200">
-            <div class="member-img">
-              <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
-              <div class="social">
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info text-center">
-              <h4>Emilia Perez</h4>
-              <span>Product Manager</span>
-              <p>Labore ipsam sit consequatur exercitationem rerum laboriosam laudantium aut quod dolores exercitationem ut</p>
-            </div>
-          </div><!-- End Team Member -->
+          <button type="submit" class="btn btn-danger w-100">Reservar</button>
+        </form>
 
-          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="300">
-            <div class="member-img">
-              <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
-              <div class="social">
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info text-center">
-              <h4>Don Alonso Renovato</h4>
-              <span>CTO</span>
-              <p>Illum minima ea autem doloremque ipsum quidem quas aspernatur modi ut praesentium vel tque sed facilis at qui</p>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="400">
-            <div class="member-img">
-              <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
-              <div class="social">
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info text-center">
-              <h4>Don Luis Fernando Rocha</h4>
-              <span>Accountant</span>
-              <p>Magni voluptatem accusamus assumenda cum nisi aut qui dolorem voluptate sed et veniam quasi quam consectetur</p>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="500">
-            <div class="member-img">
-              <img src="assets/img/team/team-5.jpg" class="img-fluid" alt="">
-              <div class="social">
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info text-center">
-              <h4>Don Federico Mora</h4>
-              <span>janitor</span>
-              <p>Qui consequuntur quos accusamus magnam quo est molestiae eius laboriosam sunt doloribus quia impedit laborum velit</p>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="600">
-            <div class="member-img">
-              <img src="assets/img/team/team-6.jpg" class="img-fluid" alt="">
-              <div class="social">
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-            <div class="member-info text-center">
-              <h4>Josepha Palas</h4>
-              <span>Operation</span>
-              <p>Sint sint eveniet explicabo amet consequatur nesciunt error enim rerum earum et omnis fugit eligendi cupiditate vel</p>
-            </div>
-          </div><!-- End Team Member -->
-
+        <div id="confirmationMessage" class="alert alert-success mt-4 text-center" style="display: none;">
+          <h3>¡Reservación Confirmada!</h3>
+          <p id="reservationDetails"></p>
         </div>
-
       </div>
-
-    </section><!-- /Team Section -->
+    </section>
 
   </main>
 
   <footer id="footer" class="footer dark-background">
-
 
     <div class="container footer-top">
       <div class="row gy-4">
@@ -218,9 +134,19 @@
           <h4>Enlaces</h4>
           <ul>
             <li><i class="bi bi-chevron-right"></i> <a href="#">Inicio</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Sobre nosotros</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Servicios</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Términos de servicio</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Sobre Nosotros</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Reservación</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Términos de Servicio</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4></h4>
+          <ul>
+            <li><i class="bi bi-chevron-right" style = "display:none;"></i> <a href="#"></a></li>
+            <li><i class="bi bi-chevron-right" style = "display:none;"></i> <a href="#"></a></li>
+            <li><i class="bi bi-chevron-right" style = "display:none;"></i> <a href="#"></a></li>
+            <li><i class="bi bi-chevron-right" style = "display:none;"></i> <a href="#"></a></li>
           </ul>
         </div>
 
@@ -270,6 +196,7 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="reservacion_leones.js"></script>
 
 </body>
 
