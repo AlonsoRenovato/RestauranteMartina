@@ -1,0 +1,109 @@
+body {
+    background-color: #ffd1dc;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centrar */
+    background: white;
+    padding: 20px;
+    width: 100%; /* Aumentar responsividad */
+    max-width: 600px; /* Limitar el tamaño */
+    max-height: 80vh; /* Evitar que sea demasiado alto */
+    overflow-y: auto; /* Agregar scroll si es necesario */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Sombra para efecto flotante */
+    border-radius: 10px; /* Bordes redondeados */
+    z-index: 1000; /* Asegurar que esté encima de otros elementos */
+}
+
+#popup h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Asegurar que los divs dentro del popup no se salgan */
+#popup > div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 100%; /* Que no sobrepase el popup */
+    box-sizing: border-box; /* Evitar que padding afecte el tamaño */
+    margin-bottom: 10px; /* Espaciado entre opciones */
+}
+
+/* Ajuste de imagen */
+#popup img {
+    width: 60px; /* Hacer la imagen más pequeña */
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Texto dentro del popup */
+#popup h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+#popup p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: column; /* Apilar los elementos verticalmente */
+    gap: 5px; /* Espaciado entre los divs */
+}
+
+.menu-div {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre la imagen y el texto */
+    padding: 15px;
+    border: 3px solid rgba(0, 0, 0, 0.2); /* Borde medio transparente */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+    width: 100%;
+    max-width: 90%;
+    margin: 1px auto; /* Centrar en la página con margen */
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.menu-div:hover {
+    background-color: rgba(255, 255, 255, 1); /* Fondo blanco al hacer hover */
+    transform: translateY(-5px); /* Elevar un poco el div */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Agregar sombra sutil para darle efecto de clic */
+}
+
+/* Imagen ajustada */
+.menu-div img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover; /* Recortar si es necesario */
+    border-radius: 8px;
+}
+
+/* Contenedor de texto */
+.menu-div h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.menu-div p {
+    margin: 5px 0 0;
+    font-size: 16px;
+    color: #666;
+}

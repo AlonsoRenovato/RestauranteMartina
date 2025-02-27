@@ -67,3 +67,47 @@ app.get('/pedidos', async (req, res) => {
         res.status(500).json({ error: 'Error al obtener los pedidos' });
     }
 });
+
+// ruta para ver desayunos del menú
+app.get('/desayunos', async (req, res) => {
+    try {
+        const [rows] = await connection.execute('SELECT * FROM MenuItem WHERE Cat = ?', ['Desayuno']);
+        res.status(200).json(rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener los desayunos' });
+    }
+});
+
+// ruta para ver las comidas del menú
+app.get('/comidas', async (req, res) => {
+    try {
+        const [rows] = await connection.execute('SELECT * FROM MenuItem WHERE Cat = ?', ['Comida']);
+        res.status(200).json(rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener las comidas' });
+    }
+});
+
+// ruta para ver postres del menú
+app.get('/postres', async (req, res) => {
+    try {
+        const [rows] = await connection.execute('SELECT * FROM MenuItem WHERE Cat = ?', ['Postre']);
+        res.status(200).json(rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener los postres' });
+    }
+});
+
+// ruta para ver bebidas del menú
+app.get('/bebidas', async (req, res) => {
+    try {
+        const [rows] = await connection.execute('SELECT * FROM MenuItem WHERE Cat = ?', ['Bebida']);
+        res.status(200).json(rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener las bebidas' });
+    }
+});
