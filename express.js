@@ -129,5 +129,20 @@ app.get('/bebidas', async (req, res) => {
     }
 });
 
+/* ruta para crear un pedido
+app.post('/crearPedido', async (req, res) => {
+    const { items } = req.body; // los items se almacenan desde el request
+
+    try {
+        connection = await pool.getConnection();
+        if (connection) console.log('Se estableció una conexión a la base de datos para crear un pedido :)');
+        const [pedido] = await connection.execute('INSERT INTO Pedido (Total) VALUES (0)');
+        // crear pedido
+        
+    }
+
+
+})
+ */
 // EJECUTAR EL SERVIDOR
 app.listen(3000, () => console.log('Servidor ejecutandose en puerto 3000!'));
