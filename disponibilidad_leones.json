@@ -1,0 +1,10 @@
+{
+    "restaurante": "Restaurante Martina",
+    "disponibilidad": [
+        { "fecha": "2025-02-28", "hora": "19:00", "mesas_disponibles": 5 },
+        { "fecha": "2025-02-28", "hora": "20:00", "mesas_disponibles": 3 },
+        { "fecha": "2025-02-28", "hora": "21:00", "mesas_disponibles": 2 },
+        { "fecha": "2025-03-01", "hora": "18:00", "mesas_disponibles": 4 },
+        { "fecha": "2025-03-01", "hora": "19:30", "mesas_disponibles": 1 }
+    ]
+}
