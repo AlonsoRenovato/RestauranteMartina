@@ -8,7 +8,20 @@
     </head>
     <body onload=mostrarMenuPrincipal()>
         <div id="popup">
-            <!-- contenido generado en funciones JS -->
+            <!-- contenido generado dinámicamente en JS -->
+        </div>
+        <!-- popup del carrito (inicialmente escondido hasta que se abre con una función JS) -->
+        <div id="carrito-popup" class="popup-overlay">
+            <div class="popup-content">
+                <button id="close-popup">Cerrar</button>
+                <h2 id="popup-title">Texto default</h2>
+                <input id="cantidad-item" type="number" placeholder="Ingrese la cantidad">
+                <button id="btn-agregar" type="submit">Agregar al carrito</button>
+            </div>
+        </div>
+        <!-- ventanita de que se agregó el producto :) (también escondida)-->
+        <div id="notificacion" class="notificacion">
+            Producto agregado exitosamente
         </div>
     </body>
 </html>

@@ -2,6 +2,7 @@ let desayunos = [];
 let comidas = [];
 let postres = [];
 let bebidas = [];
+let carrito = [];
 
 // DESAYUNOS
 async function obtenerDesayunos() {
@@ -56,6 +57,7 @@ function mostrarDesayunos(desayunos) {
         p2.innerText = '$' + item.Precio;
         div.appendChild(p2);
 
+        div.onclick = () => MostrarCarritoPopup(item);
         popup.appendChild(div);
     });
 }
@@ -113,6 +115,7 @@ function mostrarComidas(comidas) {
         p2.innerText = '$' + item.Precio;
         div.appendChild(p2);
 
+        div.onclick = () => MostrarCarritoPopup(item);
         popup.appendChild(div);
     });
 }
@@ -170,6 +173,7 @@ function mostrarPostres(postres) {
         p2.innerText = '$' + item.Precio;
         div.appendChild(p2);
 
+        div.onclick = () => MostrarCarritoPopup(item);
         popup.appendChild(div);
     });
 }
@@ -227,12 +231,15 @@ function mostrarBebidas(bebidas) {
         p2.innerText = '$' + item.Precio;
         div.appendChild(p2);
 
+        div.onclick = () => MostrarCarritoPopup(item);
         popup.appendChild(div);
     });
 }
 
-// CARRITO
+// MOSTRAR EL CARRITO
 function mostrarCarrito() {
+    console.log('el carrito tiene: ', carrito); // para verificar que si está tomando el carrito
+
     const popup = document.getElementById('popup');
     popup.innerHTML = '';
 
@@ -244,6 +251,61 @@ function mostrarCarrito() {
     volver.innerText = '< Menú Principal';
     volver.onclick = mostrarMenuPrincipal;
     popup.appendChild(volver);
+}
+
+// MOSTRAR POPUP PARA AGREGAR AL CARRITO
+function MostrarCarritoPopup(item) {
+    const carritoPopup = document.getElementById('carrito-popup');
+    carritoPopup.style.display = 'flex';
+
+    // establecer botón de cerrar
+    const botonCerrar = document.getElementById('close-popup');
+    botonCerrar.onclick = function() {
+        carritoPopup.style.display = 'none';
+    };
+    
+    // establecer botón de agregar
+    const botonAgregar = document.getElementById('btn-agregar');
+
+    botonAgregar.onclick = function() {
+       agregarProducto(item, carritoPopup);
+    }
+}
+
+// AGREGAR PRODUCTOS AL CARRITO
+function agregarProducto(item, carritoPopup) { 
+    console.log('el item a agregar es:', item);
+    const cantidad = parseInt(document.getElementById('cantidad-item').value);
+
+    if (isNaN(cantidad) || cantidad <= 0) {
+        alert("Por favor, ingrese una cantidad válida (mayor que 0).");
+        return;
+    }
+    let productoExistente = carrito.find(producto => producto.Nombre === item.Nombre); // ya existe ese producto en 
+    // el carrito?
+
+    if (productoExistente) {
+        productoExistente.cantidad += cantidad;
+        productoExistente.precioTotal = productoExistente.Precio * productoExistente.cantidad
+    } else {
+        item.cantidad = cantidad;
+        item.precioTotal = item.Precio * cantidad;
+        carrito.push(item);
+    }
+
+    carritoPopup.style.display = 'none';
+    mostrarNotificacion();
+}
+
+// funcioncita para notificar que ya se agregó el producto
+function mostrarNotificacion() {
+    const notificacion = document.getElementById('notificacion');
+    notificacion.classList.add('show');  // Agrega la clase 'show' para mostrarla
+
+    // Después de 3 segundos, ocultamos la notificación
+    setTimeout(function() {
+        notificacion.classList.remove('show');
+    }, 3000);  // 3000 ms
 }
 
 // MOSTRAR MENÚ PRINCIPAL
