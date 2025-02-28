@@ -1074,7 +1074,7 @@ section,
 }S
 
 .featured-services .service-item.item-cyan .icon {
-  background-color: color-mix(in srgb, var(--orange-color) 10%, white 95%);
+  background-color: color-mix(in srgb, var(--cyan-color) 10%, white 95%);
 }
 
 .featured-services .service-item.item-cyan .icon i {
