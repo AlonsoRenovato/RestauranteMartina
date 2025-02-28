@@ -2744,3 +2744,50 @@ section,
   line-height: 1.6;
   margin-bottom: 20px;
 }
+
+.feature-divider {
+  border: none;
+  height: 2px;
+  background: #e21c96; /* Color de la línea */
+  margin: 40px 0; /* Espaciado arriba y abajo */
+  width: 80%; /* Ancho de la línea */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {  
+  .btn-reserve {
+      display: block; 
+      text-align: center; 
+      margin: 0 auto; 
+      width: max-content; 
+  }
+}
+
+@media (max-width: 768px) {  
+  #Cumbres h3,  
+  #Cumbres p {  
+      text-align: center;  
+  }  
+}
+
+@media (max-width: 768px) {  
+  #Gonzalitos h3,  
+  #Gonzalitos p {  
+      text-align: center;  
+  }  
+}
+
+@media (max-width: 768px) {  
+  #Lincoln h3,  
+  #Lincoln p {  
+      text-align: center;  
+  }  
+}
+
+@media (max-width: 768px) {  
+  #Leones h3,  
+  #Leones p {  
+      text-align: center;  
+  }  
+}
