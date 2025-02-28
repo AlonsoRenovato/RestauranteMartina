@@ -2678,3 +2678,69 @@ section,
 .btn-reserve:hover {
   background-color: #c0187e;
 }
+
+.textsn-center{
+  font-size: 2.5rem; /* Tamaño más grande para "Nuestra Historia" */
+  text-align: center;
+  font-weight: bold; /* Hace que se vea más llamativo */
+}
+
+.textsubtitulos-center {
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.textredaccion-center {
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 1.6; /* Mejora la legibilidad */
+  margin-bottom: 20px;
+}
+
+.subtitulo-linea {
+  width: 80px; /* Longitud de la línea */
+  height: 4px; /* Grosor de la línea */
+  background-color: #f8a5c2; /* Color rosa pastel */
+  margin: 12px auto 0 auto; /* Ajuste para centrar mejor debajo del título */
+  border-radius: 2px; /* Bordes redondeados */
+}
+
+.historia-container {
+  background: url("../img/Sobre_Nosotrosimg.jpg") no-repeat center center;
+  background-size: cover;
+  padding: 80px 0; /* Espaciado arriba y abajo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh; /* Ocupar casi toda la pantalla */
+}
+
+/* Caja del texto */
+.historia-box {
+  background: rgba(255, 255, 255, 0.85); /* Fondo blanco con transparencia */
+  padding: 40px;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+  text-align: center;
+}
+
+/* Ajustes para los títulos y texto */
+.historia-box h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.historia-box h3 {
+  font-size: 1.8em;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.historia-box p {
+  font-size: 1.2em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
