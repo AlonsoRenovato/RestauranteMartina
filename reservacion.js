@@ -40,9 +40,19 @@ document.getElementById("date").addEventListener("change", function () {
             let horariosDisponibles = data.disponibilidad.filter(slot => slot.fecha === fechaSeleccionada);
             console.log("Horarios filtrados:", horariosDisponibles);
 
-            let opciones = horariosDisponibles.length > 0
-                ? horariosDisponibles.map(slot => `<option value="${slot.hora}">${slot.hora} - ${slot.mesas_disponibles} mesas disponibles</option>`).join("")
-                : "<option value=''>No hay disponibilidad</option>";
+            // Siempre agrega la opción inicial antes de los horarios disponibles
+            let opciones = `<option value="" selected>Selecciona una fecha</option>`;
+
+            if (horariosDisponibles.length > 0) {
+            opciones += horariosDisponibles.map(slot => 
+            `<option value="${slot.hora}">${slot.hora} - ${slot.mesas_disponibles} mesas disponibles</option>`
+            ).join("");
+        } else {
+    opciones += "<option value=''>No hay disponibilidad</option>";
+}
+
+horaSelect.innerHTML = opciones;
+
 
             horaSelect.innerHTML = opciones;
         })

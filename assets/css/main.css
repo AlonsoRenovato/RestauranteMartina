@@ -2791,3 +2791,38 @@ section,
       text-align: center;  
   }  
 }
+
+@media (max-width: 768px) {
+  #P1 h3,
+  #P1 p {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  #P2 h3,
+  #P2 p {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  #P3 h3,
+  #P3 p {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  #P4 h3,
+  #P4 p {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  #P5 h3,
+  #P5 p {
+    text-align: center;
+  }
+}
