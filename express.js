@@ -7,8 +7,12 @@ const cors = require('cors'); // cross-origin resource sharing
 const pool = require('./db'); // importa el pool de conexiones de db.js
 const app = express(); // inicializa el servidor express
 
-app.use(cors()); // usar cors en todas las rutas
 app.use(express.json()); // para manejar datos tipo json
+
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+}));
 
 // establece la ruta de la raíz, o sea lo que pasa cuando se ejecuta el servidor
 app.get('/', (req, res) => {
@@ -165,22 +169,59 @@ app.get('/sucursales/:nombre?', async (req, res) => {
 
 // ruta para crear un pedido
 app.post('/crearPedido', async (req, res) => {
-    const { items } = req.body; // los items se almacenan desde el request
+    console.log('Datos recibidos en el backend:', req.body); // esto se muestra por lo que los datos SÍ están llegando
+
+    // los parámetros deben estar en su formato adecuado para introducirlos en los queries
+    const { ADomicilio, SucursalID, carrito, costoTotal } = req.body;
+
+    console.log('¿A domicilio?:', ADomicilio);
+    console.log('Sucursal ID:', SucursalID);
+    console.log('Carrito:', carrito);
+    console.log('Costo total:', costoTotal);
+
+    if (ADomicilio === undefined || ADomicilio === null) { console.log('falta el modo de entrega.') };
+    if (!SucursalID) { console.log('falta la sucursal.') };
+    if (!carrito || carrito.length === 0) { console.log('falta el carrito o el carrito no tiene items.') };
+    if (!costoTotal) { console.log('falta el costo total.') };
+
+    if (ADomicilio === undefined || ADomicilio === null || !SucursalID || !carrito || carrito.length === 0 || !costoTotal) {
+        return res.status(400).json({ message: 'Faltan parámetros necesarios para crear el pedido.' });
+    }
+
+    let connection;
 
     try {
         connection = await pool.getConnection();
         if (connection) console.log('Se estableció una conexión a la base de datos para crear un pedido :)');
 
-        const [pedido] = await connection.execute('INSERT INTO Pedido (Total) VALUES (0)'); // crear pedido
-        const pedidoID = pedido.insertId;
+        // paso 1: crear el pedido en la tabla Pedido
+        const sqlQuery = ('INSERT INTO Pedido (ADomicilio, SucursalID, Total) VALUES (?, ?, ?)');
+        const valoresPedido = [ADomicilio, SucursalID, costoTotal];
 
-        let totalPedido;
-        for (let item of items) {
-            const subtotal = item.Cantidad * item.Subtotal
-            totalPedido += subtotal;
+        const [result] = await connection.execute(sqlQuery, valoresPedido);
+        console.log('Inserción de pedido realizada con éxito');
+        const PedidoID = result.insertId;
+
+        console.log('Pedido creado con ID:', PedidoID);
+
+        // paso 2: registrar los productos en la tabla Pedido_MenuItem
+        const insertMenuItemSQL = 'INSERT INTO Pedido_MenuItem (PedidoID, MenuItemID, Cantidad, Subtotal) VALUES (?, ?, ?, ?)';
+
+        for (let item of carrito) {
+            const { MenuItemID, Cantidad, Subtotal } = item;
+            console.log('Item actual:', item);
+            const valoresMenuItem = [PedidoID, MenuItemID, Cantidad, Subtotal];
+            await connection.execute(insertMenuItemSQL, valoresMenuItem);
         }
-    } catch {
+        console.log('Se crearon todos los registros de Pedido_MenuItem');
 
+        res.status(201).json({ success: true, message: 'Pedido creado con éxito', PedidoID });
+
+    } catch (error) {
+        console.error('Error al crear pedido:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    } finally {
+        if (connection) connection.release();
     }
 });
 

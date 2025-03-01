@@ -12,14 +12,13 @@ async function obtenerDesayunos() {
     console.log('Se llamó la función obtenerDesayunos');
 
     try {
-        const respuesta = await fetch('http:localhost:3000/desayunos')
+        const respuesta = await fetch('http://localhost:3000/desayunos')
         desayunos = await respuesta.json();
         mostrarDesayunos(desayunos);
 
     } catch (error) {
         console.error('Error al obtener los desayunos: ', error);
     }
-
 }
 
 function mostrarDesayunos(desayunos) {
@@ -72,7 +71,7 @@ async function obtenerComidas() {
     console.log('Se llamó la función obtenerComidas');
 
     try {
-        const respuesta = await fetch('http:localhost:3000/comidas')
+        const respuesta = await fetch('http://localhost:3000/comidas')
         comidas = await respuesta.json();
         console.log(comidas);
         mostrarComidas(comidas);
@@ -132,7 +131,7 @@ async function obtenerPostres() {
     console.log('Se llamó la función obtenerPostres');
 
     try {
-        const respuesta = await fetch('http:localhost:3000/postres')
+        const respuesta = await fetch('http://localhost:3000/postres')
         postres = await respuesta.json();
         console.log(postres);
         mostrarPostres(postres);
@@ -192,7 +191,7 @@ async function obtenerBebidas() {
     console.log('Se llamó la función obtenerBebidas');
 
     try {
-        const respuesta = await fetch('http:localhost:3000/bebidas')
+        const respuesta = await fetch('http://localhost:3000/bebidas')
         bebidas = await respuesta.json();
         console.log(bebidas);
         mostrarBebidas(bebidas);
@@ -807,7 +806,7 @@ function confirmarPedido(items, costoTotalPedido, sucursal, modoEntrega) {
     confirmarBtn.innerText = 'Confirmar Pedido';
     confirmarBtn.classList.add('btn-confirmar');
     confirmarBtn.onclick = () => {
-        alert('Pedido confirmado ✅');
+        hacerPedido(modoEntrega, sucursal, items, costoTotalPedido);
     };
     popup.appendChild(confirmarBtn);
 
@@ -819,4 +818,45 @@ function confirmarPedido(items, costoTotalPedido, sucursal, modoEntrega) {
         mostrarCarrito();
     }
     popup.appendChild(volverBtn);
+}
+
+// HACER PEDIDO
+async function hacerPedido(modoEntrega, sucursal, carrito, costoTotal) {
+    console.log('Modo de entrega:', modoEntrega);
+    console.log('Sucursal ID:', sucursal.SucursalID);
+    console.log('Carrito:', carrito);
+    console.log('Costo Total:', costoTotal);
+
+    const pedidoData = {
+        ADomicilio: modoEntrega,
+        SucursalID: sucursal.SucursalID, // asumiendo que sucursal tiene un campo id
+        carrito: carrito.map(item => ({
+            MenuItemID: item.MenuItemID, // Asumiendo que cada item tiene un campo id
+            Cantidad: item.cantidad,
+            Subtotal: item.precioTotal
+        })),
+        costoTotal: costoTotal
+    };
+
+    // hacer el request a la api
+    await fetch('http://localhost:3000/crearPedido', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(pedidoData), // Enviar los datos en formato JSON
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Si el pedido fue exitoso, puedes mostrar un mensaje o redirigir
+            console.log('Pedido realizado exitosamente:', data);
+        } else {
+            // Si hubo algún error, manejarlo
+            console.error('Error al realizar el pedido:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+    });
 }
