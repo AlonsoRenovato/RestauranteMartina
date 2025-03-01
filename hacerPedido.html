@@ -6,9 +6,9 @@
         <link rel="stylesheet" href="hacerPedidoStyles.css">
         <script src="hacerPedidoBackend.js"></script>
     </head>
-    <body onload=mostrarMenuPrincipal()>
+    <body onload=menuSucursales()>
         <div id="popup">
-            <!-- contenido generado dinámicamente en JS -->
+            <!-- popup principal, contenido generado dinámicamente en JS -->
         </div>
         <!-- popup del carrito (inicialmente escondido hasta que se abre con una función JS) -->
         <div id="carrito-popup" class="popup-overlay">
@@ -23,5 +23,28 @@
         <div id="notificacion" class="notificacion">
             Producto agregado exitosamente
         </div>
+        <!-- ventanita de que se eliminó el producto -->
+        <div id="notificacion2">
+            Producto eliminado exitosamente
+        </div>
+        <!-- popup de modificar cantidad para un item en el carrito-->
+         <div id="modificar-popup" class="popup-overlay">
+            <div class="popup-content">
+                <button id="close-popup2">Cerrar</button>
+                <h2 id="popup-title2">Texto default</h2>
+                <input id="cantidad-item2" type="number" placeholder="Ingrese la cantidad nueva">
+                <button id="btn-actualizar" type="submit">Actualizar</button>
+            </div>
+         </div>
+         <!-- popup para establecer si el pedido es a domicilio o para recoger -->
+          <div id="domicilio-popup" class="popup-overlay">
+            <div class="popup-content">
+                <button id="close-popup3">Cerrar</button>
+                <h2 id="popup-title3">Modo de entrega</h2>
+                <p class="popup-paragraph">Selecciona su modo de entrega:</p>
+                <button class="btn-modo-entrega">A domicilio</button>
+                <button class="btn-modo-entrega">Para recoger</button>
+            </div>
+          </div>
     </body>
 </html>

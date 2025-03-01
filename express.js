@@ -129,20 +129,60 @@ app.get('/bebidas', async (req, res) => {
     }
 });
 
-/* ruta para crear un pedido
+// ruta para obtener una sucursal específica
+app.get('/sucursales/:nombre?', async (req, res) => {
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        if (connection) console.log('Se estableció una conexión a la base de datos para obtener una sucursal');
+
+        const { nombre } = req.params; // capturar el nombre de la sucursal que se busca si existe
+        let query = 'SELECT * FROM Sucursal'; // este es el query default
+        let values = [];
+
+        if (nombre) {
+            query += ' WHERE Sucursal = ?'; // esto se le añade al query default si se busca una sucursal específica
+            values.push(nombre);
+        }
+
+        const [rows] = await connection.execute(query, values);
+
+        if (rows.length === 0) {
+            console.log(`La sucursal buscada no salió en la base de datos`);
+            return res.status(404).json({ message: 'Sucursal no encontrada' }); // respuesta para el front end
+        }
+
+        console.log(rows);
+
+        res.status(200).json(rows);
+    } catch (error) {
+        console.error('Error al obtener sucursales:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    } finally {
+        if (connection) connection.release();
+    }
+});
+
+// ruta para crear un pedido
 app.post('/crearPedido', async (req, res) => {
     const { items } = req.body; // los items se almacenan desde el request
 
     try {
         connection = await pool.getConnection();
         if (connection) console.log('Se estableció una conexión a la base de datos para crear un pedido :)');
-        const [pedido] = await connection.execute('INSERT INTO Pedido (Total) VALUES (0)');
-        // crear pedido
-        
+
+        const [pedido] = await connection.execute('INSERT INTO Pedido (Total) VALUES (0)'); // crear pedido
+        const pedidoID = pedido.insertId;
+
+        let totalPedido;
+        for (let item of items) {
+            const subtotal = item.Cantidad * item.Subtotal
+            totalPedido += subtotal;
+        }
+    } catch {
+
     }
+});
 
-
-})
- */
 // EJECUTAR EL SERVIDOR
 app.listen(3000, () => console.log('Servidor ejecutandose en puerto 3000!'));

@@ -3,6 +3,9 @@ let comidas = [];
 let postres = [];
 let bebidas = [];
 let carrito = [];
+let globalSucursal;
+let ADomicilio = true;
+let costoTotal = 0;
 
 // DESAYUNOS
 async function obtenerDesayunos() {
@@ -27,15 +30,17 @@ function mostrarDesayunos(desayunos) {
 
     popup.innerHTML = '';
 
-    const volver = document.createElement('button');
-    volver.innerText = '< Volver';
+    const volver = document.createElement('img');
+    volver.src = 'assets/img/back.jpg';
+    volver.classList.add('volver-btn');
     volver.onclick = mostrarMenuPrincipal;  // llamar función al hacer click
     popup.appendChild(volver);
 
-    const carrito = document.createElement('button');
-    carrito.innerText = 'Carrito';
+    const carritoButton = document.createElement('img');
+    carritoButton.src = 'assets/img/cart.jpg';
+    carritoButton.classList.add('carrito-btn');
     carrito.onclick = mostrarCarrito;
-    popup.appendChild(carrito);
+    popup.appendChild(carritoButton);
 
     const title = document.createElement('h2');
     title.innerText = 'Desayunos';
@@ -54,10 +59,10 @@ function mostrarDesayunos(desayunos) {
         div.appendChild(p);
 
         const p2 = document.createElement('p');
-        p2.innerText = '$' + item.Precio;
+        p2.innerText = '$' + item.Precio.toFixed(2);
         div.appendChild(p2);
 
-        div.onclick = () => MostrarCarritoPopup(item);
+        div.onclick = () => mostrarCarritoPopup(item);
         popup.appendChild(div);
     });
 }
@@ -85,15 +90,17 @@ function mostrarComidas(comidas) {
 
     popup.innerHTML = '';
 
-    const volver = document.createElement('button');
-    volver.innerText = '< Volver';
+    const volver = document.createElement('img');
+    volver.src = 'assets/img/back.jpg';
+    volver.classList.add('volver-btn');
     volver.onclick = mostrarMenuPrincipal;
     popup.appendChild(volver);
 
-    const carrito = document.createElement('button');
-    carrito.innerText = 'Carrito';
+    const carritoButton = document.createElement('img');
+    carritoButton.src = 'assets/img/cart.jpg';
+    carritoButton.classList.add('carrito-btn');
     carrito.onclick = mostrarCarrito;
-    popup.appendChild(carrito);
+    popup.appendChild(carritoButton);
 
     const title = document.createElement('h2');
     title.innerText = 'Comidas';
@@ -112,10 +119,10 @@ function mostrarComidas(comidas) {
         div.appendChild(p);
 
         const p2 = document.createElement('p');
-        p2.innerText = '$' + item.Precio;
+        p2.innerText = '$' + item.Precio.toFixed(2);
         div.appendChild(p2);
 
-        div.onclick = () => MostrarCarritoPopup(item);
+        div.onclick = () => mostrarCarritoPopup(item);
         popup.appendChild(div);
     });
 }
@@ -143,15 +150,17 @@ function mostrarPostres(postres) {
 
     popup.innerHTML = '';
 
-    const volver = document.createElement('button');
-    volver.innerText = '< Volver';
+    const volver = document.createElement('img');
+    volver.src = 'assets/img/back.jpg';
+    volver.classList.add('volver-btn');
     volver.onclick = mostrarMenuPrincipal;
     popup.appendChild(volver);
 
-    const carrito = document.createElement('button');
-    carrito.innerText = 'Carrito';
+    const carritoButton = document.createElement('img');
+    carritoButton.src = 'assets/img/cart.jpg';
+    carritoButton.classList.add('carrito-btn');
     carrito.onclick = mostrarCarrito;
-    popup.appendChild(carrito);
+    popup.appendChild(carritoButton);
 
     const title = document.createElement('h2');
     title.innerText = 'Postres';
@@ -170,10 +179,10 @@ function mostrarPostres(postres) {
         div.appendChild(p);
 
         const p2 = document.createElement('p');
-        p2.innerText = '$' + item.Precio;
+        p2.innerText = '$' + item.Precio.toFixed(2);
         div.appendChild(p2);
 
-        div.onclick = () => MostrarCarritoPopup(item);
+        div.onclick = () => mostrarCarritoPopup(item);
         popup.appendChild(div);
     });
 }
@@ -201,15 +210,17 @@ function mostrarBebidas(bebidas) {
 
     popup.innerHTML = '';
 
-    const volver = document.createElement('button');
-    volver.innerText = '< Volver';
+    const volver = document.createElement('img');
+    volver.src = 'assets/img/back.jpg';
+    volver.classList.add('volver-btn');
     volver.onclick = mostrarMenuPrincipal;
     popup.appendChild(volver);
 
-    const carrito = document.createElement('button');
-    carrito.innerText = 'Carrito';
+    const carritoButton = document.createElement('img');
+    carritoButton.src = 'assets/img/cart.jpg';
+    carritoButton.classList.add('carrito-btn');
     carrito.onclick = mostrarCarrito;
-    popup.appendChild(carrito);
+    popup.appendChild(carritoButton);
 
     const title = document.createElement('h2');
     title.innerText = 'Bebidas';
@@ -228,35 +239,85 @@ function mostrarBebidas(bebidas) {
         div.appendChild(p);
 
         const p2 = document.createElement('p');
-        p2.innerText = '$' + item.Precio;
+        p2.innerText = '$' + item.Precio.toFixed(2);
         div.appendChild(p2);
 
-        div.onclick = () => MostrarCarritoPopup(item);
+        div.onclick = () => mostrarCarritoPopup(item);
         popup.appendChild(div);
     });
 }
 
 // MOSTRAR EL CARRITO
 function mostrarCarrito() {
-    console.log('el carrito tiene: ', carrito); // para verificar que si está tomando el carrito
-
+    console.log('el carrito tiene: ', carrito); // para verificar que está tomando el carrito
+    console.log('el costo total es: ', costoTotal);
     const popup = document.getElementById('popup');
     popup.innerHTML = '';
-
-    const title = document.createElement('h2');
-    title.innerText = 'Mi Carrito'
-    popup.appendChild(title);
 
     const volver = document.createElement('button');
     volver.innerText = '< Menú Principal';
     volver.onclick = mostrarMenuPrincipal;
     popup.appendChild(volver);
+
+    const title = document.createElement('h2');
+    title.innerText = 'Mi Carrito'
+    popup.appendChild(title);
+
+    carrito.forEach(producto => {
+        const itemDiv = document.createElement('div'); 
+        itemDiv.classList.add('item-carrito');
+
+        const itemNombre = document.createElement('h5');
+        itemNombre.innerText = `${producto.Nombre} x${producto.cantidad}`;
+        itemDiv.appendChild(itemNombre);
+
+        const itemPrecioTotal = document.createElement('p');
+        itemPrecioTotal.innerText = `Subtotal: $${producto.precioTotal.toFixed(2)}`;
+        itemDiv.appendChild(itemPrecioTotal);
+
+        const cambiarCantidadButton = document.createElement('button');
+        cambiarCantidadButton.innerText = 'Cambiar cantidad';
+        cambiarCantidadButton.onclick = function() {
+            cambiarCantidadPopup(producto);
+        }
+        itemDiv.appendChild(cambiarCantidadButton);
+
+        const eliminarButton = document.createElement('button');
+        eliminarButton.innerText = 'Eliminar';
+        eliminarButton.onclick = function() {
+            eliminarProducto(producto);
+            mostrarNotificacionEliminado();
+        };
+        itemDiv.appendChild(eliminarButton);
+
+        popup.appendChild(itemDiv);
+ 
+    });
+
+    const totalText = document.createElement('p');
+    totalText.innerText = `Total: $${costoTotal.toFixed(2)}`;
+    popup.appendChild(totalText);
+
+    const checkoutButton = document.createElement('button');
+    checkoutButton.innerText = 'Realizar Pedido'
+    checkoutButton.onclick = function() {
+        if (carrito <= 0) {
+            alert('¡No hay items en el carrito!');
+        } else {
+            mostrarADomicilioMenu();
+        }
+    };
+    popup.appendChild(checkoutButton);
 }
 
 // MOSTRAR POPUP PARA AGREGAR AL CARRITO
-function MostrarCarritoPopup(item) {
+function mostrarCarritoPopup(item) {
     const carritoPopup = document.getElementById('carrito-popup');
     carritoPopup.style.display = 'flex';
+
+    // poner el nombre del item
+    const nombreItem = document.getElementById('popup-title');
+    nombreItem.innerText = `${item.Nombre}`;
 
     // establecer botón de cerrar
     const botonCerrar = document.getElementById('close-popup');
@@ -277,8 +338,8 @@ function agregarProducto(item, carritoPopup) {
     console.log('el item a agregar es:', item);
     const cantidad = parseInt(document.getElementById('cantidad-item').value);
 
-    if (isNaN(cantidad) || cantidad <= 0) {
-        alert("Por favor, ingrese una cantidad válida (mayor que 0).");
+    if (isNaN(cantidad) || cantidad < 1 || cantidad > 10) {
+        alert("Por favor, ingrese una cantidad válida (entre 1 y 10).");
         return;
     }
     let productoExistente = carrito.find(producto => producto.Nombre === item.Nombre); // ya existe ese producto en 
@@ -286,19 +347,22 @@ function agregarProducto(item, carritoPopup) {
 
     if (productoExistente) {
         productoExistente.cantidad += cantidad;
+        costoTotal -= productoExistente.precioTotal;
         productoExistente.precioTotal = productoExistente.Precio * productoExistente.cantidad
+        costoTotal += productoExistente.precioTotal;
     } else {
         item.cantidad = cantidad;
         item.precioTotal = item.Precio * cantidad;
+        costoTotal += item.precioTotal;
         carrito.push(item);
     }
 
     carritoPopup.style.display = 'none';
-    mostrarNotificacion();
+    mostrarNotificacionAgregado();
 }
 
 // funcioncita para notificar que ya se agregó el producto
-function mostrarNotificacion() {
+function mostrarNotificacionAgregado() {
     const notificacion = document.getElementById('notificacion');
     notificacion.classList.add('show');  // Agrega la clase 'show' para mostrarla
 
@@ -308,16 +372,163 @@ function mostrarNotificacion() {
     }, 3000);  // 3000 ms
 }
 
-// MOSTRAR MENÚ PRINCIPAL
-function mostrarMenuPrincipal() {
+// ELIMINAR PRODUCTOS DEL CARRITO
+function eliminarProducto(item) {
+    carrito = carrito.filter(producto => producto !== item);
+    costoTotal -= item.precioTotal;
+    mostrarCarrito();
+}
+
+// funcioncita para notificar que ya se eliminó el producto
+function mostrarNotificacionEliminado() {
+    console.log('Se llamó la función de notificar eliminación');
+    const notificacion = document.getElementById('notificacion2');
+    notificacion.classList.add('show');  // Agrega la clase 'show' para mostrarla
+
+    // Después de 3 segundos, ocultamos la notificación
+    setTimeout(function() {
+        notificacion.classList.remove('show');
+    }, 3000);  // 3000 ms
+}
+
+// MODIFICAR CANTIDAD DE PRODUCTO EN CARRITO
+function cambiarCantidadPopup(item) {
+    const popup = document.getElementById('modificar-popup');
+    popup.style.display = 'flex';
+
+    // poner el nombre del item
+    const nombreItem = document.getElementById('popup-title2');
+    nombreItem.innerText = `${item.Nombre}`;
+
+    // establecer botón de cerrar
+    const botonCerrar = document.getElementById('close-popup2');
+    botonCerrar.onclick = function() {
+        popup.style.display = 'none';
+    };
+    
+    // establecer botón de agregar
+    const botonActualizar = document.getElementById('btn-actualizar');
+
+    botonActualizar.onclick = function() {
+       cambiarCantidadProducto(item, popup);
+    };
+}
+
+// CAMBIAR CANTIDAD DE UN PRODUCTO EN EL CARRITO
+function cambiarCantidadProducto(item, popup) {
+    const nuevaCantidad = parseInt(document.getElementById('cantidad-item2').value);
+
+    if (isNaN(nuevaCantidad) || nuevaCantidad < 1 || nuevaCantidad > 10) {
+        alert("Por favor, ingrese una cantidad válida (entre 1 y 10).");
+        return;
+    }
+
+    item.cantidad = nuevaCantidad;
+
+    costoTotal -= item.precioTotal;
+    const nuevoPrecio = item.cantidad * item.Precio;
+    item.precioTotal = nuevoPrecio;
+    costoTotal += item.precioTotal;
+
+    popup.style.display = 'none';
+    mostrarCarrito();
+}
+
+// MOSTRAR MENÚ DE MODO DE ENTREGA (A DOMICILIO/PARA RECOGER)
+function mostrarADomicilioMenu() {
+    console.log('llamando función de menú de modo de entrega');
     const popup = document.getElementById('popup');
 
     popup.innerHTML = '';
 
-    const carrito = document.createElement('button');
-    carrito.innerText = 'Carrito';
-    carrito.onclick = mostrarCarrito;
-    popup.appendChild(carrito);
+    const volverButton = document.createElement('button');
+    volverButton.innerText = 'Volver';
+    volverButton.onclick = mostrarCarrito;
+    popup.appendChild(volverButton);
+
+    const sucursalText = document.createElement('p');
+    if (globalSucursal) {
+        sucursalText.innerText = `Sucursal elegida: ${globalSucursal.Sucursal}`
+    } else {
+        sucursalText.innerText = 'No se ha elegido sucursal';
+    }
+    popup.appendChild(sucursalText);
+
+    const title = document.createElement('h2');
+    title.innerText = 'Elige tu modo de entrega';
+    popup.appendChild(title);
+
+    const opcionesSection = document.createElement('div');
+    opcionesSection.classList.add('menu-list');
+
+    const aDomicilioDiv = document.createElement('div');
+    aDomicilioDiv.classList.add('menu-div');
+    aDomicilioDiv.onclick = setEntregaADomicilio;  // aquí ponemos el manejador para establecer el modo de entrega
+    const aDomicilioImage = document.createElement('img');
+    aDomicilioImage.src = 'assets/img/delivery.jpg';
+    aDomicilioDiv.appendChild(aDomicilioImage);
+    const aDomicilioTitle = document.createElement('h3');
+    aDomicilioTitle.innerText = 'A Domicilio (+$30 de envío)';
+    aDomicilioDiv.appendChild(aDomicilioTitle);
+
+    opcionesSection.appendChild(aDomicilioDiv);
+
+    const paraRecogerDiv = document.createElement('div');
+    paraRecogerDiv.classList.add('menu-div');
+    paraRecogerDiv.onclick = setEntregaParaRecoger;  // aquí ponemos el manejador para establecer el modo de entrega
+    const paraRecogerImage = document.createElement('img');
+    paraRecogerImage.src = 'assets/img/takeout.jpg';
+    paraRecogerDiv.appendChild(paraRecogerImage);
+    const paraRecogerTitle = document.createElement('h3');
+    paraRecogerTitle.innerText = `Para Recoger (sucursal ${globalSucursal.Sucursal})`;
+    paraRecogerDiv.appendChild(paraRecogerTitle);
+
+    opcionesSection.appendChild(paraRecogerDiv);
+
+    popup.appendChild(opcionesSection);
+}
+
+// ESTABLECER ENTREGA A DOMICILIO
+function setEntregaADomicilio() {
+    ADomicilio = true;
+    confirmarPedido(carrito, costoTotal, globalSucursal, ADomicilio);
+}
+
+// ESTABLECER ENTREGA PARA RECOGER
+function setEntregaParaRecoger() {
+    ADomicilio = false;
+    confirmarPedido(carrito, costoTotal, globalSucursal, ADomicilio);
+}
+
+// MOSTRAR MENÚ PRINCIPAL
+function mostrarMenuPrincipal() {
+    console.log('llamando función de menú principal');
+    const popup = document.getElementById('popup');
+
+    popup.innerHTML = '';
+
+    const carritoButton = document.createElement('img');
+    carritoButton.src = 'assets/img/cart.jpg';
+    carritoButton.classList.add('carrito-btn');
+    carritoButton.onclick = mostrarCarrito;
+    popup.appendChild(carritoButton);
+
+    const sucursalText = document.createElement('p');
+    if (globalSucursal) {
+        console.log('Claves del objeto:', Object.keys(globalSucursal));
+        console.log(`La sucursal que se debería mostrar es ${globalSucursal.Sucursal}`);
+        sucursalText.innerText = `Sucursal elegida: ${globalSucursal.Sucursal}`
+    } else {
+        sucursalText.innerText = 'No se ha elegido sucursal';
+    }
+    sucursalText.classList.add('sucursal-text');
+    popup.appendChild(sucursalText);
+
+    const sucursalButton = document.createElement('button');
+    sucursalButton.classList.add('sucursal-btn');
+    sucursalButton.innerText = 'Cambiar';
+    sucursalButton.onclick = menuSucursales;
+    popup.appendChild(sucursalButton) 
 
     const title = document.createElement('h2');
     title.innerText = 'Realiza tu pedido';
@@ -393,4 +604,219 @@ function mostrarMenuPrincipal() {
     menuList.appendChild(bebidasDiv);
 
     popup.appendChild(menuList);
+}
+
+// MOSTRAR SELECCIÓN DE SUCURSAL
+function menuSucursales() {
+    console.log('llamando función de menuSucursales');
+    const popup = document.getElementById('popup');
+
+    popup.innerHTML = '';
+
+    const title = document.createElement('h2');
+    title.innerText = 'Elige tu sucursal';
+    popup.appendChild(title);
+
+    // menú de opciones
+    const sucursalesList = document.createElement('div');
+    sucursalesList.classList.add('menu-list');
+    
+    const cumbresDiv = document.createElement('div');
+    cumbresDiv.classList.add('menu-div');
+    cumbresDiv.onclick = async function () {
+        try {
+            const respuesta = await fetch('http://localhost:3000/sucursales/Cumbres');
+            data = await respuesta.json();
+
+            console.log('Respuesta de la API:', data);
+
+            if (!data || !Array.isArray(data) || data.length === 0) { // si no está la sucursal
+                console.error('la API funcionó, pero la sucursal no fue encontrada');
+                alert('Sucursal no encontrada');
+                return;
+            }
+
+            // si sí está:
+            console.log('la sucursal obtenida fue: ', data); // para troubleshooting
+            globalSucursal = data[0];
+            console.log('La sucursal almacenada en globalSucursal:', globalSucursal);
+            mostrarMenuPrincipal(); // guardar sucursal y mostrar menú principal
+        } catch (error) {
+            console.error('Error al obtener la sucursal Cumbres: ', error);
+        }
+    }
+    const cumbresImage = document.createElement('img');
+    cumbresImage.src = 'assets/img/location.jpg';
+    cumbresDiv.appendChild(cumbresImage);
+    const cumbresTitle = document.createElement('h3');
+    cumbresTitle.innerText = 'Cumbres';
+    cumbresDiv.appendChild(cumbresTitle);
+    sucursalesList.appendChild(cumbresDiv);
+
+    const gonzalitosDiv = document.createElement('div');
+    gonzalitosDiv.classList.add('menu-div');
+    gonzalitosDiv.onclick = async function () {
+        try {
+            const respuesta = await fetch('http://localhost:3000/sucursales/Gonzalitos');
+            data = await respuesta.json();
+
+            console.log('Respuesta de la API:', data);
+
+            if (!data || !Array.isArray(data) || data.length === 0) { // si no está la sucursal
+                console.error('la API funcionó, pero la sucursal no fue encontrada');
+                alert('Sucursal no encontrada');
+                return;
+            }
+
+            // si sí está:
+            console.log('la sucursal obtenida fue: ', data); // para troubleshooting
+            globalSucursal = data[0];
+            console.log('La sucursal almacenada en globalSucursal:', globalSucursal);
+            mostrarMenuPrincipal(); // guardar sucursal y mostrar menú principal
+        } catch (error) {
+            console.error('Error al obtener la sucursal Gonzalitos: ', error);
+        }
+    }
+    const gonzalitosImage = document.createElement('img');
+    gonzalitosImage.src = 'assets/img/location.jpg';
+    gonzalitosDiv.appendChild(gonzalitosImage);
+    const gonzalitosTitle = document.createElement('h3');
+    gonzalitosTitle.innerText = 'Gonzalitos';
+    gonzalitosDiv.appendChild(gonzalitosTitle);
+    sucursalesList.appendChild(gonzalitosDiv);
+
+    const lincolnDiv = document.createElement('div');
+    lincolnDiv.classList.add('menu-div');
+    lincolnDiv.onclick = async function () {
+        try {
+            const respuesta = await fetch('http://localhost:3000/sucursales/Lincoln');
+            data = await respuesta.json();
+
+            console.log('Respuesta de la API:', data);
+
+            if (!data || !Array.isArray(data) || data.length === 0) { // si no está la sucursal
+                console.error('la API funcionó, pero la sucursal no fue encontrada');
+                alert('Sucursal no encontrada');
+                return;
+            }
+
+            // si sí está:
+            console.log('la sucursal obtenida fue: ', data); // para troubleshooting
+            globalSucursal = data[0];
+            console.log('La sucursal almacenada en globalSucursal:', globalSucursal);
+            mostrarMenuPrincipal(); // guardar sucursal y mostrar menú principal
+        } catch (error) {
+            console.error('Error al obtener la sucursal Lincoln: ', error);
+        }
+    }
+    const lincolnImage = document.createElement('img');
+    lincolnImage.src = 'assets/img/location.jpg';
+    lincolnDiv.appendChild(lincolnImage);
+    const lincolnTitle = document.createElement('h3');
+    lincolnTitle.innerText = 'Lincoln';
+    lincolnDiv.appendChild(lincolnTitle);
+    sucursalesList.appendChild(lincolnDiv);
+
+    const leonesDiv = document.createElement('div');
+    leonesDiv.classList.add('menu-div');
+    leonesDiv.onclick = async function () {
+        try {
+            const respuesta = await fetch('http://localhost:3000/sucursales/Leones');
+            data = await respuesta.json();
+
+            console.log('Respuesta de la API:', data);
+
+            if (!data || !Array.isArray(data) || data.length === 0) { // si no está la sucursal
+                console.error('la API funcionó, pero la sucursal no fue encontrada');
+                alert('Sucursal no encontrada');
+                return;
+            }
+
+            // si sí está:
+            console.log('la sucursal obtenida fue: ', data); // para troubleshooting
+            globalSucursal = data[0];
+            console.log('La sucursal almacenada en globalSucursal:', globalSucursal);
+            mostrarMenuPrincipal(); // guardar sucursal y mostrar menú principal
+        } catch (error) {
+            console.error('Error al obtener la sucursal Leones: ', error);
+        }
+    }
+    const leonesImage = document.createElement('img');
+    leonesImage.src = 'assets/img/location.jpg';
+    leonesDiv.appendChild(leonesImage);
+    const leonesTitle = document.createElement('h3');
+    leonesTitle.innerText = 'Leones';
+    leonesDiv.appendChild(leonesTitle);
+    sucursalesList.appendChild(leonesDiv);
+
+    popup.appendChild(sucursalesList);
+}
+
+function confirmarPedido(items, costoTotalPedido, sucursal, modoEntrega) {
+    const popup = document.getElementById('popup');
+
+    popup.innerHTML = '';
+
+    const title = document.createElement('h2');
+    title.innerText = 'Confirma tu pedido';
+    popup.appendChild(title);
+
+    if (modoEntrega == true) {
+        costoTotalPedido += 30;
+    }
+
+    // LISTA DE PRODUCTOS
+    const listContainer = document.createElement('div');
+    listContainer.classList.add('pedido-lista');
+
+    items.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('pedido-item');
+
+        itemDiv.innerHTML = `
+            <span class="nombre">${item.Nombre}</span> 
+            <span class="cantidad">x${item.cantidad}</span> 
+            <span class="subtotal">$${item.precioTotal.toFixed(2)}</span>
+        `;
+
+        listContainer.appendChild(itemDiv);
+    });
+    popup.appendChild(listContainer);
+
+    // PRECIO TOTAL
+    const totalDiv = document.createElement('div');
+    totalDiv.classList.add('pedido-total');
+    if (modoEntrega) {
+        totalDiv.innerHTML = `<strong>Total (+ $30 envío):</strong> $${costoTotalPedido.toFixed(2)}`;
+    } else {
+        totalDiv.innerHTML = `<strong>Total:</strong> $${costoTotalPedido.toFixed(2)}`;
+    }
+    popup.appendChild(totalDiv);
+
+    // INFORMACIÓN DE ENTREGA
+    const entregaDiv = document.createElement('div');
+    entregaDiv.classList.add('pedido-entrega');
+    entregaDiv.innerHTML = `
+        <strong>Sucursal:</strong> ${sucursal.Sucursal} <br>
+        <strong>Modo de entrega:</strong> ${modoEntrega ? 'A domicilio' : 'Para recoger'}
+    `;
+    popup.appendChild(entregaDiv);
+
+    // BOTÓN DE CONFIRMACIÓN
+    const confirmarBtn = document.createElement('button');
+    confirmarBtn.innerText = 'Confirmar Pedido';
+    confirmarBtn.classList.add('btn-confirmar');
+    confirmarBtn.onclick = () => {
+        alert('Pedido confirmado ✅');
+    };
+    popup.appendChild(confirmarBtn);
+
+    // BOTÓN DE VOLVER
+    const volverBtn = document.createElement('button');
+    volverBtn.innerText = 'Volver';
+    volverBtn.classList.add('btn-volver'); 
+    volverBtn.onclick = () => {
+        mostrarCarrito();
+    }
+    popup.appendChild(volverBtn);
 }
