@@ -2826,3 +2826,74 @@ section,
     text-align: center;
   }
 }
+
+#confirmationMessage {
+  display: none;
+  background-color: #ffe6f2;
+  color: #d63384;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 500px;
+  margin: 20px auto;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+  border: 2px solid #d63384;
+  animation: scaleIn 0.6s ease-in-out;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#confirmationMessage h3 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #d63384;
+}
+
+#confirmationMessage p {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: #b0256b;
+}
+
+#confirmationMessage strong {
+  color: #d63384;
+  font-weight: bold;
+}
+
+#confirmationMessage:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animated-check {
+  font-size: 2rem;
+  color: #d63384;
+  display: inline-block;
+  animation: bounce 0.5s infinite;
+}
+
+.confetti {
+  font-size: 1.5rem;
+  margin-left: 5px;
+  animation: bounce 0.5s infinite alternate;
+}
