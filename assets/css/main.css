@@ -2827,7 +2827,6 @@ section,
   }
 }
 
-<<<<<<< HEAD
 #confirmationMessage {
   display: none;
   background-color: #ffe6f2;
@@ -2898,7 +2897,6 @@ section,
   margin-left: 5px;
   animation: bounce 0.5s infinite alternate;
 }
-=======
 .btn-wsp{
   position: fixed;
   width: 55px;
@@ -2991,4 +2989,3 @@ section,
 .icon-whatsapp:before { content: '\f232'; } /* '' */
 
 
->>>>>>> b36e72dc86bd72f52742c458e1d8913ca3d9c7ea
