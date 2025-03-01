@@ -2885,7 +2885,7 @@ section,
   font-family: "whatsapp";
   font-style: normal;
   font-weight: normal;
-  speak: never;
+
 
   display: inline-block;
   text-decoration: inherit;
@@ -2917,3 +2917,5 @@ section,
 }
 
 .icon-whatsapp:before { content: '\f232'; } /* '' */
+
+
