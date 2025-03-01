@@ -123,6 +123,7 @@ body {
 
 /* Estilo del contenido del popup */
 .popup-content {
+    position: relative;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -130,6 +131,10 @@ body {
     width: 80%;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
 }
 
 .popup-content h2 {
@@ -143,21 +148,6 @@ body {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-}
-
-/* Estilo del botón cerrar */
-#close-popup {
-    background-color: #ff4f4f;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#close-popup:hover {
-    background-color: #e03e3e;
 }
 
 #show-popup {
@@ -407,4 +397,145 @@ body {
 
 .volver-btn:hover {
     transform: scale(1.1); /* Agranda un poco la imagen al pasar el ratón */
+}
+
+.popup-final {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+}
+
+/* Título del popup */
+.popup-final h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Mensaje del popup */
+.popup-final p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Botones */
+.popup-final button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.popup-final button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para el botón de "Cancelar pedido" */
+.popup-final button:first-child {
+    background-color: #dc3545;
+}
+
+.popup-final button:first-child:hover {
+    background-color: #c82333;
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px; 
+    right: 10px; 
+    width: 30px; 
+    height: 30px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.close-popup:hover {
+    opacity: 0.7;
+}
+
+.btn-add {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Efecto hover */
+.btn-add:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Efecto de enfoque (cuando se hace clic o se selecciona) */
+.btn-add:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(72, 183, 104, 0.7);
+}
+
+.sucursal-btn {
+    background: none;
+    border: none;
+    color: rgb(245, 22, 178);
+    text-decoration: underline;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.sucursal-btn:hover {
+    color: rgb(182, 3, 182);
+}
+
+.home-btn {
+    position: absolute; /* Posiciona el botón de forma absoluta dentro de su contenedor */
+    top: 10px; /* Distancia desde la parte superior */
+    left: 10px; /* Distancia desde la izquierda */
+    width: 100px; /* Tamaño ajustable del botón */
+    height: auto; /* Mantiene la proporción de la imagen */
+    cursor: pointer; /* Hace que parezca un botón interactivo */
+    transition: transform 0.2s ease-in-out; /* Efecto suave al pasar el mouse */
+}
+
+.home-btn:hover {
+    transform: scale(1.1); /* Hace un pequeño zoom al pasar el mouse */
+}
+
+.title-text {
+    font-size: 24px; /* Tamaño adecuado para títulos */
+    font-weight: bold; /* Resalta el título sin ser excesivo */
+    color: #b35aa0; /* Un tono rosa suave para la tipografía */
+    background: linear-gradient(to right, #f8e1f4, #ffffff); /* Fondo degradado sutil con rosa claro */
+    padding: 8px 16px; /* Espaciado interno para dar equilibrio */
+    border-radius: 8px; /* Bordes redondeados para un diseño más elegante */
+    text-align: center; /* Alineación centrada */
+    font-family: 'Poppins', sans-serif; /* Fuente moderna y estilizada */
+    letter-spacing: 1px; /* Espaciado entre letras para mejor legibilidad */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera para darle profundidad */
+}
+
+#volver-carrito {
+    margin: 10px;
 }

@@ -38,11 +38,12 @@ function mostrarDesayunos(desayunos) {
     const carritoButton = document.createElement('img');
     carritoButton.src = 'assets/img/cart.jpg';
     carritoButton.classList.add('carrito-btn');
-    carrito.onclick = mostrarCarrito;
+    carritoButton.onclick = mostrarCarrito;
     popup.appendChild(carritoButton);
 
     const title = document.createElement('h2');
     title.innerText = 'Desayunos';
+    desayunosTitle.classList.add('title-text');
     popup.appendChild(title);
 
     desayunos.forEach(item => {
@@ -98,7 +99,7 @@ function mostrarComidas(comidas) {
     const carritoButton = document.createElement('img');
     carritoButton.src = 'assets/img/cart.jpg';
     carritoButton.classList.add('carrito-btn');
-    carrito.onclick = mostrarCarrito;
+    carritoButton.onclick = mostrarCarrito;
     popup.appendChild(carritoButton);
 
     const title = document.createElement('h2');
@@ -158,7 +159,7 @@ function mostrarPostres(postres) {
     const carritoButton = document.createElement('img');
     carritoButton.src = 'assets/img/cart.jpg';
     carritoButton.classList.add('carrito-btn');
-    carrito.onclick = mostrarCarrito;
+    carritoButton.onclick = mostrarCarrito;
     popup.appendChild(carritoButton);
 
     const title = document.createElement('h2');
@@ -218,7 +219,7 @@ function mostrarBebidas(bebidas) {
     const carritoButton = document.createElement('img');
     carritoButton.src = 'assets/img/cart.jpg';
     carritoButton.classList.add('carrito-btn');
-    carrito.onclick = mostrarCarrito;
+    carritoButton.onclick = mostrarCarrito;
     popup.appendChild(carritoButton);
 
     const title = document.createElement('h2');
@@ -253,13 +254,16 @@ function mostrarCarrito() {
     const popup = document.getElementById('popup');
     popup.innerHTML = '';
 
-    const volver = document.createElement('button');
-    volver.innerText = '< Menú Principal';
+    const volver = document.createElement('img');
+    volver.classList.add('volver-btn');
+    volver.id = 'volver-carrito';
+    volver.src = 'assets/img/back.jpg';
     volver.onclick = mostrarMenuPrincipal;
     popup.appendChild(volver);
 
     const title = document.createElement('h2');
     title.innerText = 'Mi Carrito'
+    title.classList.add('title-text');
     popup.appendChild(title);
 
     carrito.forEach(producto => {
@@ -298,6 +302,7 @@ function mostrarCarrito() {
     popup.appendChild(totalText);
 
     const checkoutButton = document.createElement('button');
+    checkoutButton.classList.add('btn-add');
     checkoutButton.innerText = 'Realizar Pedido'
     checkoutButton.onclick = function() {
         if (carrito <= 0) {
@@ -440,18 +445,11 @@ function mostrarADomicilioMenu() {
 
     popup.innerHTML = '';
 
-    const volverButton = document.createElement('button');
-    volverButton.innerText = 'Volver';
-    volverButton.onclick = mostrarCarrito;
-    popup.appendChild(volverButton);
-
-    const sucursalText = document.createElement('p');
-    if (globalSucursal) {
-        sucursalText.innerText = `Sucursal elegida: ${globalSucursal.Sucursal}`
-    } else {
-        sucursalText.innerText = 'No se ha elegido sucursal';
-    }
-    popup.appendChild(sucursalText);
+    const volver = document.createElement('img');
+    volver.classList.add('volver-btn');
+    volver.src = 'assets/img/back.jpg';
+    volver.onclick = mostrarCarrito;
+    popup.appendChild(volver);
 
     const title = document.createElement('h2');
     title.innerText = 'Elige tu modo de entrega';
@@ -531,6 +529,7 @@ function mostrarMenuPrincipal() {
 
     const title = document.createElement('h2');
     title.innerText = 'Realiza tu pedido';
+    title.classList.add('title-text');
     popup.appendChild(title);
     
     const description = document.createElement('p');
@@ -550,6 +549,7 @@ function mostrarMenuPrincipal() {
     desayunosDiv.appendChild(desayunosImage);
     const desayunosTitle = document.createElement('h3');
     desayunosTitle.innerText = 'Desayunos';
+    desayunosTitle.classList.add('title-text');
     desayunosDiv.appendChild(desayunosTitle);
     const desayunosDescription = document.createElement('p');
     desayunosDescription.innerText = 'Empieza tu día de la mejor manera con nuestros desayunos';
@@ -565,6 +565,7 @@ function mostrarMenuPrincipal() {
     comidasDiv.appendChild(comidasImage);
     const comidasTitle = document.createElement('h3');
     comidasTitle.innerText = 'Comidas';
+    comidasTitle.classList.add('title-text');
     comidasDiv.appendChild(comidasTitle);
     const comidasDescription = document.createElement('p');
     comidasDescription.innerText = 'Los platillos perfectos para tus antojos de mediodía';
@@ -580,6 +581,7 @@ function mostrarMenuPrincipal() {
     postresDiv.appendChild(postresImage);
     const postresTitle = document.createElement('h3');
     postresTitle.innerText = 'Postres';
+    postresTitle.classList.add('title-text');
     postresDiv.appendChild(postresTitle);
     const postresDescription = document.createElement('p');
     postresDescription.innerText = 'Deliciosos postres para terminar tu comida';
@@ -595,6 +597,7 @@ function mostrarMenuPrincipal() {
     bebidasDiv.appendChild(bebidasImage);
     const bebidasTitle = document.createElement('h3');
     bebidasTitle.innerText = 'Bebidas';
+    bebidasTitle.classList.add('title-text');
     bebidasDiv.appendChild(bebidasTitle);
     const bebidasDescription = document.createElement('p');
     bebidasDescription.innerText = 'Bebidas refrescantes para acompañar tu comida';
@@ -614,6 +617,7 @@ function menuSucursales() {
 
     const title = document.createElement('h2');
     title.innerText = 'Elige tu sucursal';
+    title.classList.add('title-text');
     popup.appendChild(title);
 
     // menú de opciones
@@ -757,7 +761,7 @@ function confirmarPedido(items, costoTotalPedido, sucursal, modoEntrega) {
     popup.innerHTML = '';
 
     const title = document.createElement('h2');
-    title.innerText = 'Confirma tu pedido';
+    title.innerText = 'Confirme su pedido';
     popup.appendChild(title);
 
     if (modoEntrega == true) {
@@ -844,19 +848,103 @@ async function hacerPedido(modoEntrega, sucursal, carrito, costoTotal) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(pedidoData), // Enviar los datos en formato JSON
+        body: JSON.stringify(pedidoData), // enviar los datos en formato JSON
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Si el pedido fue exitoso, puedes mostrar un mensaje o redirigir
-            console.log('Pedido realizado exitosamente:', data);
+            // si el pedido fue exitoso, mostrar un mensaje y redirigir
+            console.log('Pedido realizado exitosamente:', data.Pedido);
+            pantallaFinal(data.Pedido);
         } else {
-            // Si hubo algún error, manejarlo
+            // si hubo algún error, manejarlo
             console.error('Error al realizar el pedido:', data.message);
         }
     })
     .catch(error => {
         console.error('Error en la solicitud:', error);
     });
+}
+
+function pantallaFinal(pedido) {
+    console.log('El ID del pedido en la pantalla final es:', pedido.PedidoID);
+    const popup = document.getElementById('popup');
+
+    popup.innerHTML = '';
+
+    const title = document.createElement('h2');
+    title.innerText = 'Pedido realizado con éxito';
+    title.classList.add('title-text');
+    popup.appendChild(title);
+
+    const mensaje = document.createElement('p');
+    mensaje.innerText = '¡Gracias por tu preferencia!';
+    popup.appendChild(mensaje);
+
+    const cancelarBtn = document.createElement('button');
+    cancelarBtn.innerText = 'Cancelar pedido';
+    cancelarBtn.onclick = () => {
+        cancelarPedido(pedido);
+
+        cancelarBtn.style.display = 'none';
+
+        const lineBreak = document.createElement('br');
+        popup.appendChild(lineBreak);
+
+        const cancelacionTexto = document.createElement('p');
+        cancelacionTexto.innerText = 'Se ha cancelado el pedido.';
+
+        popup.appendChild(cancelacionTexto);
+
+        const volverDefault = document.getElementById('volver-default');
+        volverDefault.style.display = 'none';
+
+        const volverBtn = document.createElement('button');
+        volverBtn.innerText = 'Realizar otro pedido';
+        volverBtn.onclick = () => {
+            mostrarMenuPrincipal();
+        }
+        popup.appendChild(volverBtn);
+    }
+    popup.appendChild(cancelarBtn);
+
+    const volverBtn = document.createElement('button');
+    volverBtn.id = 'volver-default';
+    volverBtn.innerText = 'Realizar otro pedido';
+    volverBtn.onclick = () => {
+        mostrarMenuPrincipal();
+    }
+    popup.appendChild(volverBtn);
+
+    popup.classList.add('popup-final');
+}
+
+async function cancelarPedido(pedido) {
+    try {
+        const response = await fetch('http://localhost:3000/eliminarPedido', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ pedido }), // enviar los datos en formato JSON
+        });
+    
+        const data = await response.json();
+        console.log('Respuesta del backend:', data);
+    
+        if (response.ok) {
+            console.log('Pedido cancelado con éxito:', data.message);
+        } else {
+            console.error('Error al cancelar el pedido:', data.message);
+    }
+    } catch (error) {
+        console.error('Error en la solicitud:', error);
+    }
+
+    carrito = []; // reiniciar el carrito
+    costoTotal = 0; // reiniciar el costo
+}
+
+function irAIndex() {
+    window.location.href = 'index.html';
 }

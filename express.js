@@ -169,7 +169,7 @@ app.get('/sucursales/:nombre?', async (req, res) => {
 
 // ruta para crear un pedido
 app.post('/crearPedido', async (req, res) => {
-    console.log('Datos recibidos en el backend:', req.body); // esto se muestra por lo que los datos SÍ están llegando
+    console.log('Datos recibidos en el backend:', req.body); // esto se muestra para saber si los datos están llegando
 
     // los parámetros deben estar en su formato adecuado para introducirlos en los queries
     const { ADomicilio, SucursalID, carrito, costoTotal } = req.body;
@@ -202,7 +202,10 @@ app.post('/crearPedido', async (req, res) => {
         console.log('Inserción de pedido realizada con éxito');
         const PedidoID = result.insertId;
 
-        console.log('Pedido creado con ID:', PedidoID);
+        const queryPedido = 'SELECT * FROM Pedido WHERE PedidoID = ?';
+        const [pedido] = await connection.execute(queryPedido, [PedidoID]);
+
+        console.log('Pedido creado:', pedido);
 
         // paso 2: registrar los productos en la tabla Pedido_MenuItem
         const insertMenuItemSQL = 'INSERT INTO Pedido_MenuItem (PedidoID, MenuItemID, Cantidad, Subtotal) VALUES (?, ?, ?, ?)';
@@ -215,11 +218,49 @@ app.post('/crearPedido', async (req, res) => {
         }
         console.log('Se crearon todos los registros de Pedido_MenuItem');
 
-        res.status(201).json({ success: true, message: 'Pedido creado con éxito', PedidoID });
+        res.status(201).json({ success: true, message: 'Pedido creado con éxito', Pedido: pedido[0] });
 
     } catch (error) {
         console.error('Error al crear pedido:', error);
         res.status(500).json({ message: 'Error interno del servidor' });
+    } finally {
+        if (connection) connection.release();
+    }
+});
+
+// ELIMINAR PEDIDO
+app.post('/eliminarPedido', async (req, res) => {
+    console.log('Se llamó la ruta de eliminar pedido. datos recibidos:', req.body);
+
+    const { pedido } = req.body;
+
+    if (!pedido.PedidoID) {
+        console.log('Falta el ID del pedido.');
+    } else {
+        console.log('PedidoID recibido:', pedido.PedidoID);
+    }
+
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        if (connection) console.log('Se estableció una conexión a la base de datos para borrar un pedido :)');
+
+        const queryItems = 'DELETE FROM Pedido_MenuItem WHERE PedidoID = ?';
+        await connection.execute(queryItems, [pedido.PedidoID]);
+        console.log('Se eliminaron los items del pedido.');
+
+        const queryPedido = 'DELETE FROM Pedido WHERE PedidoID = ?';
+        const [result] = await connection.execute(queryPedido, [pedido.PedidoID]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ success: false, message: 'No se encontró el pedido a eliminar.' });
+        }
+
+        console.log('Pedido eliminado con éxito.');
+        res.status(200).json({ success: true, message: 'Pedido eliminado con éxito.' });
+    } catch (error) {
+        console.error('Error al borrar pedido:', error);
+        res.status(500).json({ success: false, message: 'Error interno del servidor' });
     } finally {
         if (connection) connection.release();
     }

@@ -7,16 +7,17 @@
         <script src="hacerPedidoBackend.js"></script>
     </head>
     <body onload=menuSucursales()>
+        <img src="assets/img/home.png" class="home-btn" onclick=irAIndex()>
         <div id="popup">
             <!-- popup principal, contenido generado dinámicamente en JS -->
         </div>
         <!-- popup del carrito (inicialmente escondido hasta que se abre con una función JS) -->
         <div id="carrito-popup" class="popup-overlay">
             <div class="popup-content">
-                <button id="close-popup">Cerrar</button>
+                <img src="assets/img/closeWindow.png" id="close-popup" class="close-popup">
                 <h2 id="popup-title">Texto default</h2>
                 <input id="cantidad-item" type="number" placeholder="Ingrese la cantidad">
-                <button id="btn-agregar" type="submit">Agregar al carrito</button>
+                <button class="btn-add" id="btn-agregar" type="submit">Agregar al carrito</button>
             </div>
         </div>
         <!-- ventanita de que se agregó el producto :) (también escondida)-->
@@ -30,10 +31,10 @@
         <!-- popup de modificar cantidad para un item en el carrito-->
          <div id="modificar-popup" class="popup-overlay">
             <div class="popup-content">
-                <button id="close-popup2">Cerrar</button>
+                <img src="assets/img/closeWindow.png" id="close-popup2" class="close-popup">
                 <h2 id="popup-title2">Texto default</h2>
                 <input id="cantidad-item2" type="number" placeholder="Ingrese la cantidad nueva">
-                <button id="btn-actualizar" type="submit">Actualizar</button>
+                <button class="btn-add" id="btn-actualizar" type="submit">Actualizar</button>
             </div>
          </div>
          <!-- popup para establecer si el pedido es a domicilio o para recoger -->
