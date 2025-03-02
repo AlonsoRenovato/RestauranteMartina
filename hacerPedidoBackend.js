@@ -43,7 +43,6 @@ function mostrarDesayunos(desayunos) {
 
     const title = document.createElement('h2');
     title.innerText = 'Desayunos';
-    desayunosTitle.classList.add('title-text');
     popup.appendChild(title);
 
     desayunos.forEach(item => {
