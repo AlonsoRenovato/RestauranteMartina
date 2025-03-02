@@ -96,7 +96,7 @@
           <div class="mb-3">
             <label for="time" class="form-label">Hora:</label>
             <select id="time" class="form-select" required>
-              <option value="">Selecciona una fecha primero</option>
+              <option value="">Selecciona una fecha</option>
             </select>
           </div>
 
@@ -109,8 +109,9 @@
         </form>
 
         <div id="confirmationMessage" class="alert alert-success mt-4 text-center" style="display: none;">
-          <h3>¡Reservación Confirmada!</h3>
           <p id="reservationDetails"></p>
+          <div style="text-align: center;">
+            <button id="downloadPDF" class="btn">Descargar Confirmación</button>
         </div>
       </div>
     </section>

@@ -2990,4 +2990,18 @@ section,
 
 .icon-whatsapp:before { content: '\f232'; } /* '' */
 
+#downloadPDF {
+  background-color: #ff4081;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#downloadPDF:hover {
+  background-color: #e91e63;
+}
 

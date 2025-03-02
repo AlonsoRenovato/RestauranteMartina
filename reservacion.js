@@ -107,7 +107,6 @@ document.getElementById("reservationForm").addEventListener("submit", function(e
             <p><strong>Hora:</strong> ${time}</p>
             <p><strong>Número de personas:</strong> ${people}</p>
             <p>🎉 <span class="confetti">¡Te esperamos en <strong>Restaurante Martina</strong>!</span></p>
-            <button onclick="downloadConfirmation()" class="download-btn">Descargar Confirmación</button>
         </div>
     `;
 
