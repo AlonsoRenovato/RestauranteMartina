@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Contact - Moderna Bootstrap Template</title>
+  <title>Contacto - Restaurante Martina</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -50,19 +50,22 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html" class="active">Inicio</a></li>
+          <li><a href="index.html">Inicio</a></li>
           <li><a href="Sobre_Nosotros.html">Sobre Nosotros</a></li>
           <li><a href="reservacion.html">Reservación</a></li>
           <li><a href="team.html">Equipo</a></li>
-          <li><a href="contact.html">Contacto</a></li>
+          <li><a href="contact.html" class="active">Contacto</a></li>
           <li><a href="Menu.html">Menú</a></li>
-          <li><a href="login.html">Iniciar Sesión</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
     </div>
   </header>
+
+  <a href="https://api.whatsapp.com/send?phone=8182072005" class="btn-wsp" target="_blank">
+    <i class="icon-whatsapp"></i>
+</a>
 
   <main class="main">
 
@@ -104,7 +107,7 @@
                 <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
                   <i class="bi bi-envelope"></i>
                   <h3>Correo</h3>
-                  <p>RestauranteMartina@gmail.com</p>
+                  <p>rte.martina@gmail.com</p>
                 </div>
               </div><!-- End Info Item -->
 
@@ -112,7 +115,7 @@
           </div>
 
           <div class="col-lg-6">
-            <form action="Gracias.html" method="post" class="php-email-form"  data-aos-delay="500">
+            <form action="https://formsubmit.co/74a377e94451d63fbfe6549a72789fad" method="post" class="php-email-form" >
               <div class="row gy-4">
 
                 <div class="col-md-6">
@@ -124,7 +127,15 @@
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Asunto" required="">
+                  <select class="form-control" name="subject" required>
+                    <option value="" disabled selected>Selecciona un asunto</option>
+                    <option value="Queja o reclamo">Queja o reclamo</option>
+                    <option value="Sugerencia o comentario">Sugerencia o comentario</option>
+                    <option value="Información sobre el menú">Información sobre el menú</option>
+                    <option value="Evento o catering">Evento o catering</option>
+                    <option value="Bolsa de trabajo">Bolsa de trabajo</option>
+                    <option value="Otro">Otro</option>
+                  </select>
                 </div>
 
                 <div class="col-md-12">
@@ -168,17 +179,17 @@
             <p>Av. Alejandro de Rodas 567, Col. Cumbres Elite</p>
             <p>Monterrey, Nuevo León, México.</p>
             <p class="mt-3"><strong>Teléfono:</strong> <span>81 5329 6256</span></p>
-            <p><strong>Email:</strong> <span>RestauranteMartina@gmail.com</span></p>
+            <p><strong>Email:</strong> <span>rte.martina@gmail.com</span></p>
           </div>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Enlaces</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Inicio</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Sobre nosotros</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Servicios</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Términos de servicio</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.html">Inicio</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="Sobre_Nosotros.html">Sobre nosotros</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="reservacion.html">Reservación</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="login.html">Iniciar Sesión</a></li>
           </ul>
         </div>
 
@@ -186,10 +197,9 @@
           <h4>Siguenos</h4>
           <p>¡Recuerda seguirnos en todas nuestras cuentas para no perderte nada del restaurante de Martina!</p>
           <div class="social-links d-flex">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+            <a href="https://api.whatsapp.com/send?phone=8182072005" target="_blank"><i class="bi bi-whatsapp"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61573799189069" target="_blank"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/restaurante_martina_mx/" target="_blank"><i class="bi bi-instagram"></i></a>
           </div>
         </div>
 

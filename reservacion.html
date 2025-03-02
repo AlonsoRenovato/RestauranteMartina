@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Services - Moderna Bootstrap Template</title>
+  <title>Reservación - Restaurante Martina</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -50,19 +50,22 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html" class="active">Inicio</a></li>
+          <li><a href="index.html">Inicio</a></li>
           <li><a href="Sobre_Nosotros.html">Sobre Nosotros</a></li>
-          <li><a href="reservacion.html">Reservación</a></li>
+          <li><a href="reservacion.html" class="active">Reservación</a></li>
           <li><a href="team.html">Equipo</a></li>
           <li><a href="contact.html">Contacto</a></li>
           <li><a href="Menu.html">Menú</a></li>
-          <li><a href="login.html">Iniciar Sesión</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
     </div>
   </header>
+
+  <a href="https://api.whatsapp.com/send?phone=8182072005" class="btn-wsp" target="_blank">
+    <i class="icon-whatsapp"></i>
+</a>
 
   <main class="main">
 
@@ -104,7 +107,7 @@
           <div class="mb-3">
             <label for="time" class="form-label">Hora:</label>
             <select id="time" class="form-select" required>
-              <option value="">Selecciona una fecha primero</option>
+              <option value="">Selecciona una fecha</option>
             </select>
           </div>
 
@@ -117,8 +120,9 @@
         </form>
 
         <div id="confirmationMessage" class="alert alert-success mt-4 text-center" style="display: none;">
-          <h3>¡Reservación Confirmada!</h3>
           <p id="reservationDetails"></p>
+          <div style="text-align: center;">
+            <button id="downloadPDF" class="btn">Descargar Confirmación</button>
         </div>
       </div>
     </section>
@@ -137,17 +141,17 @@
             <p>Av. Alejandro de Rodas 567, Col. Cumbres Elite</p>
             <p>Monterrey, Nuevo León, México.</p>
             <p class="mt-3"><strong>Teléfono:</strong> <span>81 5329 6256</span></p>
-            <p><strong>Email:</strong> <span>RestauranteMartina@gmail.com</span></p>
+            <p><strong>Email:</strong> <span>rte.martina@gmail.com</span></p>
           </div>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Enlaces</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Inicio</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Sobre Nosotros</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Reservación</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Términos de Servicio</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.html">Inicio</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="Sobre_Nosotros.html">Sobre Nosotros</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="reservacion.html">Reservación</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="login.html">Iniciar Sesión</a></li>
           </ul>
         </div>
 
@@ -165,10 +169,9 @@
           <h4>Siguenos</h4>
           <p>¡Recuerda seguirnos en todas nuestras cuentas para no perderte nada del restaurante de Martina!</p>
           <div class="social-links d-flex">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+            <a href="https://api.whatsapp.com/send?phone=8182072005" target="_blank"><i class="bi bi-whatsapp"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61573799189069" target="_blank"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/restaurante_martina_mx/" target="_blank"><i class="bi bi-instagram"></i></a>
           </div>
         </div>
 
@@ -207,6 +210,7 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="reservacion.js"></script>
 
 </body>

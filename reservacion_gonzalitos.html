@@ -50,13 +50,12 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html" class="active">Inicio</a></li>
+          <li><a href="index.html">Inicio</a></li>
           <li><a href="Sobre_Nosotros.html">Sobre Nosotros</a></li>
           <li><a href="reservacion.html">Reservación</a></li>
           <li><a href="team.html">Equipo</a></li>
           <li><a href="contact.html">Contacto</a></li>
           <li><a href="Menu.html">Menú</a></li>
-          <li><a href="login.html">Iniciar Sesión</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -106,11 +105,44 @@
         </form>
 
         <div id="confirmationMessage" class="alert alert-success mt-4 text-center" style="display: none;">
-          <h3>¡Reservación Confirmada!</h3>
           <p id="reservationDetails"></p>
+          <div style="text-align: center;">
+            <button id="downloadPDF" class="btn">Descargar Confirmación</button>
         </div>
       </div>
     </section>
+
+    <hr class="feature-divider">
+
+    <!-- Sección de Ubicación - Sucursal Gonzalitos -->
+<section id="ubicacion-gonzalitos" class="py-5">
+  <div class="container">
+    <h2 class="text-center">Nuestra Sucursal Gonzalitos</h2>
+    <p class="text-center">Ubicada en una de las avenidas más transitadas, la sucursal Gonzalitos te ofrece un ambiente acogedor y moderno para disfrutar de un desayuno o comida.</p>
+
+    <div class="row">
+      <!-- Mapa de Google Maps -->
+      <div class="col-lg-6">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3621.524908063698!2d-100.493331!3d25.711149!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x866295e59a7b5a8f%3A0x8d4deec8e6899828!2sAv.%20Gonzalitos%201567%2C%20Monterrey%2C%20N.L.!5e0!3m2!1ses-419!2smx!4v1710101012345"
+          width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+
+      <!-- Texto descriptivo -->
+      <div class="col-lg-6 d-flex align-items-center">
+        <div>
+          <h3>Ubicación Estratégica</h3>
+          <p>En la zona de Gonzalitos, disfruta de una experiencia gastronómica única con platillos cuidadosamente seleccionados y un ambiente encantador.</p>
+          <p><strong>Dirección:</strong> Av. Gonzalitos #1567, Monterrey, NL.</p>
+          <p><strong>Horario:</strong> Lunes a Domingo de 8:00 AM a 9:30 PM.</p>
+          <p><strong>Teléfono:</strong> (81) 2345-6789</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
   </main>
 
@@ -133,10 +165,10 @@
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Enlaces</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Inicio</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Sobre Nosotros</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Reservación</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Términos de Servicio</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.html">Inicio</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="Sobre_Nosotros.html">Sobre Nosotros</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="reservacion.html">Reservación</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="login.html">Iniciar Sesión</a></li>
           </ul>
         </div>
 
@@ -156,7 +188,7 @@
           <div class="social-links d-flex">
             <a href=""><i class="bi bi-twitter-x"></i></a>
             <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href="https://www.instagram.com/therock/"><i class="bi bi-instagram"></i></a>
             <a href=""><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
@@ -196,6 +228,8 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <script src="reservacion_gonzalitos.js"></script>
 
 </body>

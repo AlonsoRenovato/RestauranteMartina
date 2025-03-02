@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Realizar Pedido | Martina</title>
+        <link rel="stylesheet" href="hacerPedidoStyles.css">
+        <script src="hacerPedidoBackend.js"></script>
+    </head>
+    <body onload=menuSucursales()>
+        <img src="assets/img/home.png" class="home-btn" onclick=irAIndex()>
+        <div id="popup">
+            <!-- popup principal, contenido generado dinámicamente en JS -->
+        </div>
+        <!-- popup del carrito (inicialmente escondido hasta que se abre con una función JS) -->
+        <div id="carrito-popup" class="popup-overlay">
+            <div class="popup-content">
+                <img src="assets/img/closeWindow.png" id="close-popup" class="close-popup">
+                <h2 id="popup-title">Texto default</h2>
+                <input id="cantidad-item" type="number" placeholder="Ingrese la cantidad">
+                <button class="btn-add" id="btn-agregar" type="submit">Agregar al carrito</button>
+            </div>
+        </div>
+        <!-- ventanita de que se agregó el producto :) (también escondida)-->
+        <div id="notificacion" class="notificacion">
+            Producto agregado exitosamente
+        </div>
+        <!-- ventanita de que se eliminó el producto -->
+        <div id="notificacion2">
+            Producto eliminado exitosamente
+        </div>
+        <!-- popup de modificar cantidad para un item en el carrito-->
+         <div id="modificar-popup" class="popup-overlay">
+            <div class="popup-content">
+                <img src="assets/img/closeWindow.png" id="close-popup2" class="close-popup">
+                <h2 id="popup-title2">Texto default</h2>
+                <input id="cantidad-item2" type="number" placeholder="Ingrese la cantidad nueva">
+                <button class="btn-add" id="btn-actualizar" type="submit">Actualizar</button>
+            </div>
+         </div>
+         <!-- popup para establecer si el pedido es a domicilio o para recoger -->
+          <div id="domicilio-popup" class="popup-overlay">
+            <div class="popup-content">
+                <button id="close-popup3">Cerrar</button>
+                <h2 id="popup-title3">Modo de entrega</h2>
+                <p class="popup-paragraph">Selecciona su modo de entrega:</p>
+                <button class="btn-modo-entrega">A domicilio</button>
+                <button class="btn-modo-entrega">Para recoger</button>
+            </div>
+          </div>
+    </body>
+</html>
