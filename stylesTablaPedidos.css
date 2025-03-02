@@ -61,3 +61,193 @@ select {
     padding: 5px;
     box-sizing: border-box;
 }
+
+.btn-div {
+    display: flex; 
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.btn-div button {
+    padding: 4px 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.btn-div button:hover {
+    background-color: #e0e0e0;
+}
+
+#btn-eliminar {
+    background-color: rgb(197, 23, 23) !important;
+    width: 35px;  /* Tamaño más pequeño y cuadrado */
+    height: 35px; 
+    display: flex;
+    align-items: center; /* Centra verticalmente la imagen */
+    justify-content: center; /* Centra horizontalmente la imagen */
+    border: none;
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+    cursor: pointer;
+    padding: 0; /* Evita espacios extra */
+}
+
+#btn-eliminar img {
+    width: 20px;  /* Ajusta el tamaño de la imagen */
+    height: 20px;
+}
+
+#btn-eliminar:hover {
+    background-color: rgb(165, 0, 0); /* Rojo más oscuro */
+    transform: scale(1.1); /* Pequeño aumento de tamaño */
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Caja del popup */
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    min-width: 300px;
+}
+
+/* Botones */
+.popup-buttons {
+    margin-top: 15px;
+}
+
+.popup-buttons button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#popup-confirm {
+    background: rgb(0, 150, 0);
+    color: white;
+}
+
+#popup-confirm:hover {
+    background: rgb(0, 120, 0);
+}
+
+#popup-cancel {
+    background: rgb(200, 0, 0);
+    color: white;
+}
+
+#popup-cancel:hover {
+    background: rgb(150, 0, 0);
+}
+
+/* Clase para mostrar el popup */
+.show-popup {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup-items-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Oscurece el fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+}
+
+/* Contenedor del popup */
+.popup-items-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Título del popup */
+.popup-items-content h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Lista de ítems */
+.popup-items-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.popup-items-list li {
+    background: #f8f8f8;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Texto del total */
+.popup-items-total {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #444;
+}
+
+/* Botón de cerrar */
+.popup-items-close {
+    background: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background 0.3s ease-in-out;
+}
+
+.popup-items-close:hover {
+    background: #c9302c;
+}

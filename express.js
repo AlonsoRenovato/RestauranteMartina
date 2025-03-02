@@ -156,7 +156,7 @@ app.get('/sucursales/:nombre?', async (req, res) => {
             return res.status(404).json({ message: 'Sucursal no encontrada' }); // respuesta para el front end
         }
 
-        console.log(rows);
+        console.log('Sucursal(es) obtenidas:', rows);
 
         res.status(200).json(rows);
     } catch (error) {
@@ -260,6 +260,144 @@ app.post('/eliminarPedido', async (req, res) => {
         res.status(200).json({ success: true, message: 'Pedido eliminado con éxito.' });
     } catch (error) {
         console.error('Error al borrar pedido:', error);
+        res.status(500).json({ success: false, message: 'Error interno del servidor' });
+    } finally {
+        if (connection) connection.release();
+    }
+});
+
+// CONFIRMAR PEDIDO
+app.post('/setStatusPedido/:confirm?', async (req, res) => {
+    console.log('Se llamó la ruta de confirmar o desconfirmar pedido. datos recibidos:', req.body);
+
+    const { PedidoID } = req.body;
+
+    if (!PedidoID) {
+        console.log('Falta el ID del pedido.');
+        return res.status(400).json({ message: 'Falta el ID del pedido' });
+    } else {
+        console.log('PedidoID recibido:', PedidoID);
+    }
+
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        if (connection) console.log('Se estableció una conexión a la base de datos para confirmar un pedido :)');
+
+        const isConfirmado = req.params.confirm === '0' ? 0 : 1;
+        console.log(`El pedido se establecerá en ${isConfirmado ? 'confirmado' : 'no confirmado'}`);
+
+        const query = 'UPDATE Pedido SET isConfirmado = ? WHERE PedidoID = ?'; // query default
+        const [rows] = await connection.execute(query, [isConfirmado, PedidoID]);
+
+        if (rows.affectedRows === 0) {
+            console.log('El pedido no se encontró en la base de datos.');
+            return res.status(404).json({ success: false, message: 'Pedido no encontrado' });
+        }
+
+        res.status(200).json({ success: true, message: 'Pedido actualizado correctamente' });
+    } catch (error) {
+        console.error('Error al confirmar pedido:', error);
+        res.status(500).json({ success: false, message: 'Error interno del servidor' });
+    } finally {
+        if (connection) connection.release(); 
+    }
+});
+
+// OBTENER ITEMS DE UN PEDIDO
+app.get('/getPedidoItems', async (req, res) => {
+    console.log('Se llamó la ruta de obtener los items de un pedido. datos recibidos:', req.body);
+
+    const { PedidoID } = req.body;
+
+    if (!PedidoID) {
+        console.log('Falta el ID del pedido.');
+    } else {
+        console.log('PedidoID recibido:', PedidoID);
+    }
+
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        if (connection) console.log('Se estableció una conexión a la base de datos para obtener los items de un pedido');
+
+        const query = `
+            SELECT 
+                pmi.PedidoID, 
+                pmi.MenuItemID, 
+                mi.Nombre AS ItemNombre, 
+                pmi.Cantidad, 
+                pmi.Subtotal
+            FROM 
+                Pedido_MenuItem pmi
+            JOIN 
+                MenuItem mi ON pmi.MenuItemID = mi.MenuItemID
+            WHERE 
+                pmi.PedidoID = ?`;
+
+        // Ejecutamos la consulta pasando el PedidoID
+        const [rows] = await connection.execute(query, [PedidoID]);
+
+        if (rows.length === 0) {
+            console.log('No se encontraron items para el pedido.');
+            return res.status(404).json({ success: false, message: 'No se encontraron items para el pedido' });
+        }
+
+        console.log('Items obtenidos:', rows);
+        res.status(200).json({ success: true, items: rows });
+    } catch (error) {
+        console.error('Error al obtener items:', error);
+        res.status(500).json({ success: false, message: 'Error interno del servidor' });
+    } finally {
+        if (connection) connection.release();
+    }
+})
+
+// ELIMINAR PEDIDO POR ID
+app.delete('/eliminarPedidoPorId', async (req, res) => {
+    console.log('Se llamó a la ruta de eliminar un pedido. Datos recibidos:', req.body);
+
+    const { PedidoID } = req.body;
+
+    if (!PedidoID) {
+        console.log('Falta el ID del pedido.');
+        return res.status(400).json({ success: false, message: 'Falta el ID del pedido.' });
+    } else {
+        console.log('PedidoID recibido:', PedidoID);
+    }
+
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        if (connection) console.log('Se estableció una conexión a la base de datos para eliminar el pedido');
+
+        await connection.beginTransaction();
+
+        // Eliminar los items del pedido (de la tabla intermedia Pedido_MenuItem)
+        const deleteItemsQuery = `
+            DELETE FROM Pedido_MenuItem 
+            WHERE PedidoID = ?;
+        `;
+        await connection.execute(deleteItemsQuery, [PedidoID]);
+
+        // Eliminar el pedido (de la tabla principal Pedido, si existe)
+        const deletePedidoQuery = `
+            DELETE FROM Pedido 
+            WHERE PedidoID = ?;
+        `;
+        await connection.execute(deletePedidoQuery, [PedidoID]);
+
+        // Hacer commit de la transacción
+        await connection.commit();
+
+        console.log('Pedido eliminado con éxito.');
+        res.status(200).json({ success: true, message: 'Pedido eliminado con éxito.' });
+
+    } catch (error) {
+        // Si algo sale mal, revertir la transacción
+        if (connection) await connection.rollback();
+        
+        console.error('Error al eliminar el pedido:', error);
         res.status(500).json({ success: false, message: 'Error interno del servidor' });
     } finally {
         if (connection) connection.release();
