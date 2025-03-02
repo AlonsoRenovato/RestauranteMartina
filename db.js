@@ -1,8 +1,21 @@
 // importar el módulo mysql2
 const mysql = require('mysql2/promise');
 
-// establecer conexión con la base de datos
-async function connectToDatabase() {
+// establecer un pool de conexiones con la base de datos:
+const pool = mysql.createPool({
+    host: '69.49.241.64',
+    user: 'siulabc1_davsiu', // tu usuario
+    password: 'registro1313', // tu contraseña
+    database: 'siulabc1_proyectoFullstack',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+})
+
+module.exports = pool;
+
+// establecer una sola conexión con la base de datos. descomentarizar si el pool no funciona:
+/* async function connectToDatabase() {
     try {
         const connection = await mysql.createConnection({
             host: '69.49.241.64',
@@ -16,4 +29,4 @@ async function connectToDatabase() {
     }
 } 
 
-module.exports = connectToDatabase; // se exporta la función para correrla en otros archivos
+module.exports = connectToDatabase; // se exporta la función para correrla en otros archivos */
