@@ -3005,3 +3005,51 @@ section,
   background-color: #e91e63;
 }
 
+/* Contenedor de botones: alineación perfecta */
+.calendar-buttons {
+  display: flex;
+  justify-content: center; /* Centra los botones horizontalmente */
+  align-items: center; /* Alinea verticalmente */
+  flex-direction: row; /* Los pone en una fila */
+  flex-wrap: wrap; /* Evita que se desborden en pantallas pequeñas */
+  gap: 15px; /* Espaciado entre botones */
+  margin-top: 15px;
+  width: 100%;
+}
+
+/* Diseño de los botones */
+.calendar-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: auto; /* Se adapta al contenido */
+  min-width: 220px; /* Evita que sean muy pequeños */
+  text-align: center;
+}
+
+/* Google Calendar */
+#btnGoogleCalendar {
+  background-color: #4285F4;
+  color: white;
+}
+
+#btnGoogleCalendar:hover {
+  background-color: #357AE8;
+}
+
+/* Apple Calendar */
+#btnAppleCalendar {
+  background-color: #333;
+  color: white;
+}
+
+#btnAppleCalendar:hover {
+  background-color: #222;
+}

@@ -26,12 +26,16 @@ document.getElementById("date").addEventListener("change", function () {
             let opciones = `<option value="" selected>Selecciona una fecha</option>`;
 
             if (horariosDisponibles.length > 0) {
-            opciones += horariosDisponibles.map(slot => 
-            `<option value="${slot.hora}">${slot.hora} - ${slot.mesas_disponibles} mesas disponibles</option>`
-            ).join("");
-        } else {
-    opciones += "<option value=''>No hay disponibilidad</option>";
-}
+                opciones += horariosDisponibles.map(slot => 
+                    `<option value="${slot.hora}" data-mesas="${slot.mesas_disponibles}" 
+                        style="color: ${slot.color === 'rojo' ? 'red' : 'black'};">
+                        ${slot.hora} - ${slot.mesas_disponibles} mesas disponibles
+                        ${slot.advertencia ? "⚠️ " + slot.advertencia : ""}
+                    </option>`
+                ).join("");
+            } else {
+                opciones += "<option value=''>No hay disponibilidad</option>";
+            }
 
             horaSelect.innerHTML = opciones;
         })
@@ -41,25 +45,112 @@ document.getElementById("date").addEventListener("change", function () {
         });
 });
 
+// Función para agregar evento a Google Calendar
+function agregarAGoogleCalendar(fecha, hora, nombreRestaurante) {
+    console.log("Ejecutando agregarAGoogleCalendar...");
+    console.log("Fecha:", fecha, "Hora:", hora, "Restaurante:", nombreRestaurante);
+
+    const startDate = `${fecha.replace(/-/g, "")}T${hora.replace(":", "")}00`;
+    const endDate = `${fecha.replace(/-/g, "")}T${(parseInt(hora.split(":")[0]) + 1).toString().padStart(2, "0")}${hora.split(":")[1]}00`;
+
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Reserva en ${nombreRestaurante}&dates=${startDate}/${endDate}&details=Reserva confirmada en ${nombreRestaurante}.&location=${nombreRestaurante}&sf=true&output=xml`;
+
+    console.log("URL generada:", googleCalendarUrl);
+    window.open(googleCalendarUrl, "_blank");
+}
+
+// Función para agregar evento a Apple Calendar (iOS)
+function agregarAAppleCalendar(fecha, hora, nombreRestaurante) {
+    console.log("Ejecutando agregarAAppleCalendar...");
+    console.log("Fecha:", fecha, "Hora:", hora, "Restaurante:", nombreRestaurante);
+
+    const startDate = `${fecha}T${hora}:00`;
+    const endDate = `${fecha}T${(parseInt(hora.split(":")[0]) + 1).toString().padStart(2, "0")}:${hora.split(":")[1]}:00`;
+
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:Reserva en ${nombreRestaurante}
+DTSTART:${startDate.replace(/[-:]/g, "")}
+DTEND:${endDate.replace(/[-:]/g, "")}
+DESCRIPTION:Reserva confirmada en ${nombreRestaurante}.
+LOCATION:${nombreRestaurante}
+END:VEVENT
+END:VCALENDAR`;
+
+    console.log("ICS generado:\n", icsContent);
+
+    // Crear un archivo .ics y descargarlo
+    const blob = new Blob([icsContent], { type: "text/calendar" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Reserva_RestauranteMartina.ics";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    // Intentar abrir el archivo automáticamente en Safari
+    setTimeout(() => {
+        window.location.href = url;
+    }, 1000);
+}
+
 // Evento cuando cambia la hora para actualizar número de personas
 document.getElementById("time").addEventListener("change", function () {
+    console.log("hola");
+    let selectedHora = this.value;
+    let selectedFecha = document.getElementById("date").value;
+    let btnGoogleCalendar = document.getElementById("btnGoogleCalendar");
+    let btnAppleCalendar = document.getElementById("btnAppleCalendar");
+
+    // Actualizar la selección de personas según las mesas disponibles
     let selectedOption = this.options[this.selectedIndex];
     let mesasDisponibles = selectedOption.getAttribute("data-mesas");
+    console.log("valor de mesasDisponibles:", mesasDisponibles);
     let peopleSelect = document.getElementById("people");
 
+    console.log("Fecha seleccionada:", selectedFecha);
+    console.log("Hora seleccionada:", selectedHora);
+
     if (!mesasDisponibles || mesasDisponibles === "null") {
+        console.log("No hay mesas disponibles");
         peopleSelect.innerHTML = "<option value=''>Selecciona una hora primero</option>";
         return;
     }
 
     let maxPersonas = mesasDisponibles * 4; // Suponiendo 4 personas por mesa
+    console.log("maxPersonas:", maxPersonas);
     let opcionesPersonas = "";
-
     for (let i = 1; i <= maxPersonas; i++) {
         opcionesPersonas += `<option value="${i}">${i} persona${i > 1 ? 's' : ''}</option>`;
     }
-
     peopleSelect.innerHTML = opcionesPersonas;
+
+    // Mostrar botones de Google Calendar y Apple Calendar si se ha seleccionado fecha y hora
+    if (selectedHora && selectedFecha) {
+        console.log("Hay hora y fechas seleccionadas");
+
+        // Google Calendar
+        btnGoogleCalendar.onclick = function () {
+            console.log("Botón de Google Calendar clickeado"); // Verificación
+            agregarAGoogleCalendar(selectedFecha, selectedHora, "Restaurante Martina");
+        };
+
+        // Apple Calendar
+        btnAppleCalendar.onclick = function () {
+            console.log("Botón de Apple Calendar clickeado"); // Verificación
+            agregarAAppleCalendar(selectedFecha, selectedHora, "Restaurante Martina");
+
+            alert("📅 Tu archivo .ics ha sido descargado. Ábrelo y presiona 'Añadir' para guardar tu reserva en Apple Calendar.");
+        };
+               
+    } else {
+        btnGoogleCalendar.style.display = "none";
+        btnAppleCalendar.style.display = "none";
+    }
 });
 
 document.getElementById("reservationForm").addEventListener("submit", function(event) {
@@ -155,6 +246,7 @@ function downloadConfirmation() {
         // Datos de la reservación
         doc.setFont("helvetica", "normal");
         doc.setFontSize(16);
+        doc.text("Sucursal: Cumbres", 20, yOffset + 20);
         doc.text(`Fecha: ${date}`, 20, yOffset + 30);
         doc.text(`Hora: ${time}`, 20, yOffset + 40);
         doc.text(`Número de personas: ${people}`, 20, yOffset + 50);
