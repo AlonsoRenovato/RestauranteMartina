@@ -12,6 +12,11 @@
     <body onload=menuSucursales()>
         <img src="assets/img/home.png" class="home-btn" onclick=irAIndex()>
         <div id="popup">
+            <script>
+                function irAIndex() {
+                    window.close(); // Cierra la pestaña actual
+                }
+                </script>
             <!-- popup principal, contenido generado dinámicamente en JS -->
         </div>
         <!-- popup del carrito (inicialmente escondido hasta que se abre con una función JS) -->
